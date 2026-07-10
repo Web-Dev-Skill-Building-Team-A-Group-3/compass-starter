@@ -1,3 +1,10 @@
 <div class="weekly-goals-header-container">
-  weekly-goals-header works!
+  <div class="weekly-goals-header-text">
+    <h6>Weekly Goals</h6>
+    <p>{{ startOfWeek() + ' - ' + endOfWeek() }}</p>
+  </div>
+
+    <button (click)="pencilClick()" class="edit-button" type="button">
+      <img src="/images/edit.svg" alt="Edit weekly goals">
+    </button>
 </div>
