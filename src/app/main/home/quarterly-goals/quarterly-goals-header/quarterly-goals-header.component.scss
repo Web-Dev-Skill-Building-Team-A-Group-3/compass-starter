@@ -1,7 +1,52 @@
 :host {
   display: block;
-  .quarterly-goals-header-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+}
+
+.quarterly-goals-header-container {
+  width: 230px;
+  height: 58px;
+  box-sizing: border-box;
+  padding: 7px 12px 7px 10px;
+  background-color: #ffffff;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.quarterly-goals-header-text {
+  h2 {
+    margin: 0;
+    color: #4b5853;
+    font-family: Oxygen, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 100%;
+  }
+
+  p {
+    margin: 7px 0 0;
+    color: #4b5853;
+    font-family: Oxygen, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 100%;
+  }
+}
+
+.edit-button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: #2dbdb1;
+  cursor: pointer;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+
+  mat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
   }
 }

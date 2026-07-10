@@ -3,6 +3,7 @@ import { QuarterlyGoalsAnimations } from './quarterly-goals.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
+import { QuarterlyGoalsHeaderComponent } from './quarterly-goals-header/quarterly-goals-header.component';
 
 @Component({
   selector: 'app-quarterly-goals',
@@ -12,6 +13,7 @@ import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch
   animations: QuarterlyGoalsAnimations,
   standalone: true,
   imports: [
+    QuarterlyGoalsHeaderComponent,
   ],
 })
 export class QuarterlyGoalsComponent implements OnInit {
