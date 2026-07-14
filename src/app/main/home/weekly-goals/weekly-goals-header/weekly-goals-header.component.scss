@@ -1,7 +1,41 @@
-:host {
+:host { 
   display: block;
-  .weekly-goals-header-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+  .weekly-goals-header-container { 
+    width: 320px;
+    height: 66px;
+    color: #4b5853;
+    background-color: white;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    .weekly-goals-header-text {
+      h6 {
+        margin: 4px 5px 5px 5px;
+        font-family: Oxygen, sans-serif;
+        font-weight: 100;
+        line-height: 1.2;
+      }
+      p {
+        margin: 17px 5px 5px 5px;
+        line-height: 0.3;
+        font-family: Oxygen, sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+    .edit-button {
+      cursor: pointer;
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 10px 10px 10px;
+      margin: 0;
+      img {
+        width: 15px;
+        height: 15px;
+      }
+    }
   }
 }
