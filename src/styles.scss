@@ -3,6 +3,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
 
 @include mat.core();
+
+$primary: #2dbdb1;
+$secondary: #e1fbf9;
+
 $compass-theme: mat.define-theme(
   (
     typography: (
@@ -18,12 +22,24 @@ html {
   @include mat.all-component-typographies($compass-theme);
 }
 
-html,
-body,
-app-root {
+html, body, app-root {
   height: 100%;
   box-sizing: border-box;
   padding: 0;
   overflow-x: clip;
   margin: 0;
+  overflow-x: clip;
+  font-family: "Oxygen", Roboto, "Helvetica Neue", sans-serif;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #F2FFFE;
+}
+
+input, button, select, textarea {
+    font-family: inherit;
 }
