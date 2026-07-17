@@ -1,7 +1,114 @@
+$divider-color: rgba(0, 0, 0, 0.15);
+
 :host {
   display: block;
-  .weekly-goals-modal-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
-  }
+  font-family: 'oxygen';
+}
+
+.weekly-goals-modal-container {
+      .header {
+        padding: 24px 24px 16px; 
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    .top-row {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      h1 {
+        margin: 0;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 1;
+        color: #4b5853;
+      }
+      .close-button {
+        margin-left: auto;
+        margin-right: 12px;
+        transform: scale(1.4);
+        color: #4b5853;
+      }
+    }
+      .date-range {
+        margin: 4px 0 0 24px;
+        font-size: 25px;
+        padding: 0;
+        // display: block;
+        font-weight: bold;
+        color: #4b5853;
+      }
+      }
+      .goal-list {
+        margin-bottom: 20px;
+        overflow-y: auto;
+        scrollbar-width: none;
+        padding: 0;
+        &::-webkit-scrollbar {
+          width: 0;
+        }
+        .goal-item {
+          .goals-box {
+            display: flex;
+            align-items: center;
+
+            mat-icon {
+              margin-right: 8px;
+              height: 30px;
+              font-size: 30px;
+              color: #2dbdb1;
+            }
+            .field-wrapper {
+              border: none;
+              border-radius: 8px;
+              flex: 1;
+              display: flex;
+            }
+            .goal-input {
+              flex: 1;
+              margin-right: 8px;
+            }
+            
+          }
+        }
+      }
+   .action-row {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 20px;
+     .added-goals {
+       padding-right: 20px;
+       .tracking-counts {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        color: #4b5853;
+
+        .pending {
+          margin: 0;
+          font-size: 13px;
+          font-weight: 700;
+          margin-right: 4px;
+        }
+         span {
+          font-size: 12px;
+          font-weight: 600;
+          padding: 3px 8px;
+          border-radius: 12px;
+          background: #ffffff;
+        }
+      }
+     }
+      .save-button {
+        background: #2dbdb1;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
 }
