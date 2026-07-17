@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-/* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
 @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
 
@@ -22,10 +21,12 @@ html {
   @include mat.typography-hierarchy($compass-theme);
   @include mat.all-component-typographies($compass-theme);
 }
+
 html, body, app-root {
   height: 100%;
   box-sizing: border-box;
   padding: 0;
+  overflow-x: clip;
   margin: 0;
   overflow-x: clip;
   font-family: "Oxygen", Roboto, "Helvetica Neue", sans-serif;

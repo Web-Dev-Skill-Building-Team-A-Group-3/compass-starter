@@ -7,8 +7,9 @@ import { WeeklyGoalsHeaderComponent } from './weekly-goals-header/weekly-goals-h
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { QuarterlyGoalData, WeeklyGoalData} from '../home.model';
 import { Timestamp } from '@angular/fire/firestore';
-import {WeeklyGoalsModalComponent} from './weekly-goals-modal/weekly-goals-modal.component';
+import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-modal.component';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-weekly-goals',
   templateUrl: './weekly-goals.component.html',
@@ -16,8 +17,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: WeeklyGoalsAnimations,
   standalone: true,
-  imports: [WeeklyGoalsModalComponent, WeeklyGoalsHeaderComponent
-  ],
+  imports: [WeeklyGoalsModalComponent, WeeklyGoalsHeaderComponent],
 })
 export class WeeklyGoalsComponent implements OnInit {
   readonly authStore = inject(AuthStore);
@@ -32,6 +32,7 @@ export class WeeklyGoalsComponent implements OnInit {
 
   /** Loading icon. */
   loading: WritableSignal<boolean> = signal(false);
+  
   incompleteWeeklyGoals: Signal<WeeklyGoalData[]> = signal([
     {
       __id: 'wg1',
@@ -165,30 +166,32 @@ export class WeeklyGoalsComponent implements OnInit {
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
-openModal(editClicked: boolean) {
-  this.dialogRef = this.dialog.open(WeeklyGoalsModalComponent, {
-      height: '90%',
-      position: { bottom: '0' },
-      panelClass: 'goal-modal-panel',
-      data: {
-        goalDatas: this.quarterlyGoals(),
-        incompleteGoals: this.incompleteWeeklyGoals(),
-        emptyRow: !editClicked,
-        updateWeeklyGoals: async (weeklyGoalsFormArray) => {
-          try {
-            this.snackBar.open('Goals were updated', '', {
-              duration: 3000,
-              verticalPosition: 'bottom',
-              horizontalPosition: 'center',
-            });
-            this.dialogRef.close();
-          } catch (e) {
-            console.error(e);
-          }
+  
+  openModal(editClicked: boolean) {
+    this.dialogRef = this.dialog.open(WeeklyGoalsModalComponent, {
+        height: '90%',
+        position: { bottom: '0' },
+        panelClass: 'goal-modal-panel',
+        data: {
+          goalDatas: this.quarterlyGoals(),
+          incompleteGoals: this.incompleteWeeklyGoals(),
+          emptyRow: !editClicked,
+          updateWeeklyGoals: async (weeklyGoalsFormArray) => {
+            try {
+              this.snackBar.open('Goals were updated', '', {
+                duration: 3000,
+                verticalPosition: 'bottom',
+                horizontalPosition: 'center',
+              });
+              this.dialogRef.close();
+            } catch (e) {
+              console.error(e);
+            }
+          },
         },
-      },
-    });
-}
+      });
+  }
+  
   // --------------- OTHER -------------------------------
 
   constructor(

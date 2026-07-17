@@ -8,6 +8,8 @@ import { WeeklyGoalsComponent } from './weekly-goals/weekly-goals.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
+import { QuarterlyGoalsComponent } from './quarterly-goals/quarterly-goals.component';
+import { LongTermGoalsComponent } from './long-term-goals/long-term-goals.component';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +24,8 @@ import { MatSelect } from '@angular/material/select';
     MatIcon,
     MatFormField,
     MatSelect,
+    QuarterlyGoalsComponent,
+    LongTermGoalsComponent,
   ]
 })
 export class HomeComponent implements OnInit {
