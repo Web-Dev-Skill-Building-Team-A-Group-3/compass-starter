@@ -32,7 +32,7 @@ export class QuarterlyGoalsHeaderComponent implements OnInit {
   * @param isEdState: True if editing current goals, false if adding a fresh row
   */
   onEdit(isEdState: boolean): void {
-    this.snackBar.open('Opening Quarterly Goals Modal', 'Close', {
+    this.snackBar.open('Editing Quarterly Goals Modal', 'Close', {
       duration: 5000
     });
     this.editQuart.emit(isEdState);

@@ -5,6 +5,7 @@ import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
 import { LongTermGoalsItemComponent } from './long-term-goals-item/long-term-goals-item.component';
 import { LongTermGoal } from '../../../core/store/long-term-goal/long-term-goal.model';
+import { LongTermGoalsHeaderComponent } from './long-term-goals-header/long-term-goals-header.component';
 
 @Component({
   selector: 'app-long-term-goals',
@@ -15,6 +16,7 @@ import { LongTermGoal } from '../../../core/store/long-term-goal/long-term-goal.
   standalone: true,
   imports: [
     LongTermGoalsItemComponent,
+    LongTermGoalsHeaderComponent,
   ],
 })
 export class LongTermGoalsComponent implements OnInit {
