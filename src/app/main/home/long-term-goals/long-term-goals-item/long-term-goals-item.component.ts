@@ -3,6 +3,9 @@ import { LongTermGoalsItemAnimations } from './long-term-goals-item.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
+import { LongTermGoal } from '../../../../core/store/long-term-goal/long-term-goal.model';
+import { LongTermGoalStore } from '../../../../core/store/long-term-goal/long-term-goal.store';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
   selector: 'app-long-term-goals-item',
@@ -12,14 +15,19 @@ import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch
   animations: LongTermGoalsItemAnimations,
   standalone: true,
   imports: [
+    MatDividerModule,
   ],
 })
 export class LongTermGoalsItemComponent implements OnInit {
   readonly authStore = inject(AuthStore);
+  
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
   currentUser: Signal<User> = this.authStore.user;
+
+  /** Long-term goal received from the parent component. */
+  readonly longTermGoal = input.required<LongTermGoal>();
 
   // --------------- LOCAL UI STATE ----------------------
 
@@ -27,6 +35,18 @@ export class LongTermGoalsItemComponent implements OnInit {
   loading: WritableSignal<boolean> = signal(false);
 
   // --------------- COMPUTED DATA -----------------------
+
+  // --------------- COMPUTED DATA -----------------------
+
+  /** Retrieves the description of the one-year goal. */
+  readonly oneYearGoal: Signal<string> = computed(() => {
+    return this.longTermGoal().oneYear;
+  });
+
+  /** Retrieves the description of the five-year goal. */
+  readonly fiveYearGoal: Signal<string> = computed(() => {
+    return this.longTermGoal().fiveYear;
+  });
 
   // --------------- EVENT HANDLING ----------------------
 

@@ -3,6 +3,8 @@ import { LongTermGoalsAnimations } from './long-term-goals.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
+import { LongTermGoalsItemComponent } from './long-term-goals-item/long-term-goals-item.component';
+import { LongTermGoal } from '../../../core/store/long-term-goal/long-term-goal.model';
 import { LongTermGoalsHeaderComponent } from './long-term-goals-header/long-term-goals-header.component';
 
 @Component({
@@ -13,6 +15,7 @@ import { LongTermGoalsHeaderComponent } from './long-term-goals-header/long-term
   animations: LongTermGoalsAnimations,
   standalone: true,
   imports: [
+    LongTermGoalsItemComponent,
     LongTermGoalsHeaderComponent,
   ],
 })
@@ -27,6 +30,15 @@ export class LongTermGoalsComponent implements OnInit {
 
   /** Loading icon. */
   loading: WritableSignal<boolean> = signal(false);
+
+  readonly exampleLongTermGoal: LongTermGoal = {
+    __id: 'ltg',
+    __userId: 'user-1',
+    oneYear: 'Secure SWE or UX Engineering Internship',
+    fiveYear: 'SWE with UX, design, or animation-oriented work',
+  };
+
+  
 
   // --------------- COMPUTED DATA -----------------------
 
