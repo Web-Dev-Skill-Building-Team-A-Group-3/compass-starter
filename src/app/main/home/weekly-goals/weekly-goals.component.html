@@ -1,4 +1,5 @@
 <div class="weekly-goals-container">
-  <button (click) = "openModal(true)"> Evil button</button>
-  <app-weekly-goals-header/>
+<app-weekly-goals-item
+  [weeklyGoal]="incompleteWeeklyGoals()[0]">
+</app-weekly-goals-item>
 </div>
