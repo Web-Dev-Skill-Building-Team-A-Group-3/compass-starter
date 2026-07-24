@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { QuarterlyGoalData, WeeklyGoalData} from '../home.model';
 import { Timestamp } from '@angular/fire/firestore';
 import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-modal.component';
+import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -17,7 +18,11 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: WeeklyGoalsAnimations,
   standalone: true,
-  imports: [WeeklyGoalsModalComponent, WeeklyGoalsHeaderComponent],
+  imports: [
+  WeeklyGoalsModalComponent,
+  WeeklyGoalsHeaderComponent,
+  WeeklyGoalsItemComponent,
+],
 })
 export class WeeklyGoalsComponent implements OnInit {
   readonly authStore = inject(AuthStore);
@@ -37,28 +42,28 @@ export class WeeklyGoalsComponent implements OnInit {
     {
       __id: 'wg1',
       __userId: 'test-user',
-      __quarterlyGoalId: 'qg1',
-      __hashtagId: 'ht1',
-      text: 'Finish Google Cover Letter',
+      __quarterlyGoalId: 'qg2',
+      __hashtagId: 'ht2',
+      text: 'Apply to Microsoft',
       completed: false,
       order: 1,
       hashtag: {
-        __id: 'ht1',
-        name: 'coverletter',
-        color: '#EE8B72',
-      },
-    },
+       __id: 'ht2',
+      name: 'apply-internships',
+      color: '#2DBDB1',
+  },
+},
     {
       __id: 'wg2',
       __userId: 'test-user',
       __quarterlyGoalId: 'qg2',
       __hashtagId: 'ht2',
-      text: 'Apply to Microsoft',
+      text: 'Finish Google cover letter',
       completed: false,
       order: 2,
       hashtag: {
         __id: 'ht2',
-        name: 'apply',
+        name: 'apply-internships',
         color: '#2DBDB1',
       },
     },
@@ -67,12 +72,12 @@ export class WeeklyGoalsComponent implements OnInit {
       __userId: 'test-user',
       __quarterlyGoalId: 'qg3',
       __hashtagId: 'ht3',
-      text: 'Review data structures',
+      text: 'Practice implementing data structure',
       completed: true,
       order: 3,
       hashtag: {
         __id: 'ht3',
-        name: 'interview',
+        name: 'interview-technical',
         color: '#FFB987',
         _deleted: false,
       },
