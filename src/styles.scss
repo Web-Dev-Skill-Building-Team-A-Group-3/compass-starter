@@ -3,6 +3,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
 
 @include mat.core();
+$primary: #2dbdb1;
+$secondary: #e1fbf9;
 $compass-theme: mat.define-theme(
   (
     typography: (
@@ -16,6 +18,22 @@ html {
   @include mat.core-theme($compass-theme);
   @include mat.typography-hierarchy($compass-theme);
   @include mat.all-component-typographies($compass-theme);
+  @include mat.checkbox-overrides((
+    touch-target-display: none,
+    unselected-icon-color: $primary,
+    unselected-hover-icon-color: $primary,
+    unselected-focus-icon-color: $primary,
+    selected-icon-color: $primary,
+    selected-hover-icon-color: $primary,
+    selected-focus-icon-color: $primary,
+    selected-checkmark-color: #ffffff,
+    unselected-hover-state-layer-opacity: 0,
+    unselected-focus-state-layer-opacity: 0,
+    unselected-pressed-state-layer-opacity: 0,                       
+    selected-hover-state-layer-opacity: 0,
+    selected-focus-state-layer-opacity: 0,
+    selected-pressed-state-layer-opacity: 0,
+  ));
 }
 
 html,
