@@ -1,7 +1,46 @@
 :host {
   display: block;
-  .weekly-goals-item-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
-  }
+}
+
+.weekly-goals-item-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  width: fit-content;
+  min-width: 244px;
+  padding: 5px;
+  background-color: #ffffff;
+}
+
+.weekly-goal-checkbox {
+  flex-shrink: 0;
+  margin: 0;
+ /* margin-top: -8px;
+  margin-left: -8px;
+  margin-right: -8px;*/
+}
+
+.weekly-goal-content {
+  min-width: 0;
+  margin-left: 0px;
+}
+
+.weekly-goal-text {
+  margin: 0px;
+  color: #4b5853;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.weekly-goal-text.completed {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.weekly-goal-hashtag {
+  margin: 2px 0 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
 }

@@ -3,11 +3,11 @@ import { Hashtag } from '../../core/store/hashtag/hashtag.model';
 import { WeeklyGoal } from '../../core/store/weekly-goal/weekly-goal.model';
 
 export interface WeeklyGoalData extends WeeklyGoal {
-  hashtag: Hashtag;
+  hashtag: Partial<Hashtag>;
 }
 
 export interface QuarterlyGoalsData extends QuarterlyGoal {
-  hashtag: Hashtag;
+  hashtag: Partial<Hashtag>;
   weeklyGoalsTotal: number;
   weeklyGoalsComplete: number;
 }

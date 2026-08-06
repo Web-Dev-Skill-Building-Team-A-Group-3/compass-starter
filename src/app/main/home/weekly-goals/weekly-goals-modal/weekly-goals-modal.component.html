@@ -1,3 +1,68 @@
 <div class="weekly-goals-modal-container">
-  weekly-goals-modal works!
+  <div class="home-container">
+    <div class="content-container">
+  <div class="header">
+      <div class="top-row">
+        <h1>Weekly Goals</h1>
+        <button mat-icon-button class="close-button" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+          <div class="date-range">9/24-9/30</div>
+    </div>
+  <form [formGroup]="weeklyGoalsForm">
+    <section class="goal-list" formArrayName = "allGoals" cdkDropList (cdkDropListDropped)="drop($event)">
+      @for (goal of allGoals.controls; track goal; let i = $index){
+        <div class="goal-item" [formGroupName]="i" cdkDrag>
+          <div class="goals-box">
+            <mat-icon cdkDragHandle>drag_indicator</mat-icon>
+            <fieldset class="field-wrapper">
+              <mat-form-field class="goal-input">
+                <input matInput formControlName="text" placeholder="Enter your goal..." />
+              </mat-form-field>
+              <mat-form-field class="goal-dropdown">
+                <mat-select formControlName = "__quarterlyGoalId" placeholder="quarterly goal...">
+                  <mat-select-trigger>
+                     @for (quarterGoal of data.goalDatas; track quarterGoal.__id){
+                      @if (quarterGoal.__id === goal.value.__quarterlyGoalId){
+                          <span [style.color]="quarterGoal.hashtag.color"> #{{ quarterGoal.hashtag.name }}</span>
+                       }
+                      }
+                  </mat-select-trigger>
+                  @for (quarterGoal of data.goalDatas; track quarterGoal.__id){
+                  <mat-option [value]= "quarterGoal.__id" [style.color]="quarterGoal.hashtag.color">
+                  #{{ quarterGoal.hashtag.name}}
+                  </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </fieldset>
+            <input id="trash-{{ i }}" type="checkbox" formControlName="_deleted" (change)="fullDelete($event, i)" />
+            <label for="trash-{{ i }}" class="trash-label">
+              <mat-icon class="delete" fontIcon="delete"></mat-icon>
+              <mat-icon class="restore" fontIcon="restore_from_trash"></mat-icon>
+            </label>
+          </div>
+        </div>
+      }
+    </section>
+    <div class="new-goal-button">
+    <button class="add-goal" type ="button" (click)="addGoalToForm(null)">+ Add a weekly goal</button>
+    </div>
+    <div class="action-row">
+     <div class="added-goals">
+      @if (addedGoalsCount !== 0 || editedGoalsCount !== 0 || deletedGoalsCount !== 0) {
+        <div class="tracking-counts">
+          <p class="pending">Pending Changes</p>
+          @if (addedGoalsCount !== 0) { <span>Adding {{ addedGoalsCount }}</span> }
+          @if (editedGoalsCount !== 0) { <span>Editing {{ editedGoalsCount }}</span> }
+          @if (deletedGoalsCount !== 0) { <span>Deleting {{ deletedGoalsCount }}</span> }
+        </div>
+       }
+      </div>
+    <button class="save-button" type="submit" [disabled]="weeklyGoalsForm.invalid" (click) = "saveGoals()">Save</button>
+    </div>
+  </form>
+</div>
+</div>
 </div>

@@ -1,7 +1,44 @@
 :host {
   display: block;
+
   .long-term-goals-item-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+    width: 387px;
+    min-height: 150px;
+    height: auto;
+    background-color: white;
+    padding: 7px;
+    box-sizing: border-box;
+
+    mat-divider{
+        margin: 12px 0;
+        width: 100%;
+      }
+
+    .long-term-goals-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h6 {
+        margin: 0 0 4px 0;
+
+        font-family: Oxygen, sans-serif;
+        font-size: 16.25px;
+        font-weight: 700;
+        line-height: 1.1;
+        color: #4b5853;
+      }
+
+      p {
+        margin: 0;
+
+        font-family: Oxygen, sans-serif;
+        font-size: 16.25px;
+        font-weight: 400;
+        line-height: 1.2;
+        color: #66706c;
+      }
+      
+    }
   }
 }
