@@ -5,7 +5,7 @@ import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
 import { WeeklyGoalsHeaderComponent } from './weekly-goals-header/weekly-goals-header.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { QuarterlyGoalData, WeeklyGoalData} from '../home.model';
+import { QuarterlyGoalsData, WeeklyGoalData} from '../home.model';
 import { Timestamp } from '@angular/fire/firestore';
 import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-modal.component';
 import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
@@ -102,7 +102,7 @@ export class WeeklyGoalsComponent implements OnInit {
     },
   ]);
 
-  quarterlyGoals: Signal<QuarterlyGoalData[]> = signal([
+  quarterlyGoals: Signal<QuarterlyGoalsData[]> = signal([
     {
       __id: 'qg1',
       __userId: 'test-user',
