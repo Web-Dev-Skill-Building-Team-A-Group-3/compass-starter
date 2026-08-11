@@ -6,7 +6,7 @@ import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
 import { WeeklyGoal } from 'src/app/core/store/weekly-goal/weekly-goal.model';
-import { QuarterlyGoalData, WeeklyGoalInForm } from '../../home.model';
+import { QuarterlyGoalsData, WeeklyGoalInForm } from '../../home.model';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField } from '@angular/material/form-field';
@@ -131,7 +131,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
     private injector: Injector,
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      goalDatas: Partial<QuarterlyGoalData>[];
+      goalDatas: Partial<QuarterlyGoalsData>[];
       incompleteGoals: WeeklyGoal[];
       emptyRow: boolean;
       updateWeeklyGoals: (weeklyGoalsFormArray: FormArray) => Promise<void>;
