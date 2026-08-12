@@ -6,6 +6,9 @@ import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch
 import { LongTermGoalsItemComponent } from './long-term-goals-item/long-term-goals-item.component';
 import { LongTermGoal } from '../../../core/store/long-term-goal/long-term-goal.model';
 import { LongTermGoalsHeaderComponent } from './long-term-goals-header/long-term-goals-header.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { LongTermGoalsModalComponent } from './long-term-goals-modal/long-term-goals-modal.component'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-long-term-goals',
@@ -38,21 +41,34 @@ export class LongTermGoalsComponent implements OnInit {
     fiveYear: 'SWE with UX, design, or animation-oriented work',
   };
 
+    /** For storing the dialogRef in the opened modal. */
+  dialogRef: MatDialogRef<any>;
+
   
 
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
+    openModal(editClicked: boolean) {
+    this.dialogRef = this.dialog.open(LongTermGoalsModalComponent, {
+      height: '90%',
+      width: '90%' ,
+      position: { bottom: '0' },
+      data: {longTermGoal: this.exampleLongTermGoal}
+    })
+  }
 
   // --------------- OTHER -------------------------------
 
-  constructor(
-    private injector: Injector,
-    @Inject(BATCH_WRITE_SERVICE) private batch: BatchWriteService,
+ constructor(
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) { }
+
 
   // --------------- LOAD AND CLEANUP --------------------
   
   ngOnInit(): void {
   }
+  
 }
