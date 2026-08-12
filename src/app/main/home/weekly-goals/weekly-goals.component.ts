@@ -19,15 +19,11 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
   animations: WeeklyGoalsAnimations,
   standalone: true,
   imports: [
-  WeeklyGoalsModalComponent,
-  WeeklyGoalsHeaderComponent,
-  WeeklyGoalsItemComponent,
-],
+    WeeklyGoalsHeaderComponent,
+  ],
 })
 export class WeeklyGoalsComponent implements OnInit {
   readonly authStore = inject(AuthStore);
-  private dialog = inject(MatDialog);
-  private snackBar = inject(MatSnackBar);
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
@@ -37,70 +33,6 @@ export class WeeklyGoalsComponent implements OnInit {
 
   /** Loading icon. */
   loading: WritableSignal<boolean> = signal(false);
-  
-  incompleteWeeklyGoals: Signal<WeeklyGoalData[]> = signal([
-    {
-      __id: 'wg1',
-      __userId: 'test-user',
-      __quarterlyGoalId: 'qg2',
-      __hashtagId: 'ht2',
-      text: 'Apply to Microsoft',
-      completed: false,
-      order: 1,
-      hashtag: {
-       __id: 'ht2',
-      name: 'apply-internships',
-      color: '#2DBDB1',
-  },
-},
-    {
-      __id: 'wg2',
-      __userId: 'test-user',
-      __quarterlyGoalId: 'qg2',
-      __hashtagId: 'ht2',
-      text: 'Finish Google cover letter',
-      completed: false,
-      order: 2,
-      hashtag: {
-        __id: 'ht2',
-        name: 'apply-internships',
-        color: '#2DBDB1',
-      },
-    },
-    {
-      __id: 'wg3',
-      __userId: 'test-user',
-      __quarterlyGoalId: 'qg3',
-      __hashtagId: 'ht3',
-      text: 'Practice implementing data structure',
-      completed: true,
-      order: 3,
-      hashtag: {
-        __id: 'ht3',
-        name: 'interview-technical',
-        color: '#FFB987',
-        _deleted: false,
-      },
-    },
-  ]);
-
-  completeWeeklyGoals: Signal<WeeklyGoalData[]> = signal([
-    {
-      __id: 'wg3',
-      __userId: 'test-user',
-      __quarterlyGoalId: 'qg3',
-      __hashtagId: 'ht3',
-      text: 'Review data structures',
-      completed: true,
-      order: 3,
-      hashtag: {
-        __id: 'ht3',
-        name: 'interview',
-        color: '#FFB987',
-        _deleted: false,
-      },
-    },
-  ]);
 
   quarterlyGoals: Signal<QuarterlyGoalsData[]> = signal([
     {
@@ -167,35 +99,14 @@ export class WeeklyGoalsComponent implements OnInit {
       weeklyGoalsComplete: 1,
     },
   ]);
-  dialogRef: MatDialogRef<any>
+  
+  dialogRef: MatDialogRef<any>;
+  
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
-  
-  openModal(editClicked: boolean) {
-    this.dialogRef = this.dialog.open(WeeklyGoalsModalComponent, {
-        height: '90%',
-        position: { bottom: '0' },
-        panelClass: 'goal-modal-panel',
-        data: {
-          goalDatas: this.quarterlyGoals(),
-          incompleteGoals: this.incompleteWeeklyGoals(),
-          emptyRow: !editClicked,
-          updateWeeklyGoals: async (weeklyGoalsFormArray) => {
-            try {
-              this.snackBar.open('Goals were updated', '', {
-                duration: 3000,
-                verticalPosition: 'bottom',
-                horizontalPosition: 'center',
-              });
-              this.dialogRef.close();
-            } catch (e) {
-              console.error(e);
-            }
-          },
-        },
-      });
-  }
+
+
   
   // --------------- OTHER -------------------------------
 
