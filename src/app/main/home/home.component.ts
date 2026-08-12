@@ -10,6 +10,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { QuarterlyGoalsComponent } from './quarterly-goals/quarterly-goals.component';
 import { LongTermGoalsComponent } from './long-term-goals/long-term-goals.component';
+import { DateTimeComponent } from './date-time/date-time.component';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ import { LongTermGoalsComponent } from './long-term-goals/long-term-goals.compon
     MatSelect,
     QuarterlyGoalsComponent,
     LongTermGoalsComponent,
+    DateTimeComponent,
   ]
 })
 export class HomeComponent implements OnInit {

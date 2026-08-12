@@ -1,3 +1,23 @@
 <div class="date-time-container">
-  date-time works!
+  <div class="time-row">
+    <span class="time-text">
+      {{ currentDateTime() | date: 'h:mm' }}
+    </span>
+
+    <div class="time-details">
+      <span class="period">
+        {{ currentDateTime() | date: 'a' }}
+      </span>
+
+      <span class="seconds">
+        {{ currentDateTime() | date: 'ss' }}
+      </span>
+    </div>
+  </div>
+
+  <div class="date">
+    {{ currentDateTime() | date: 'MMMM' }}
+    {{ currentDateTime() | date: 'd' }}{{ suffix() }},
+    {{ currentDateTime() | date: 'yyyy' }}
+  </div>
 </div>
