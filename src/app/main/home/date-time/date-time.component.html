@@ -1,10 +1,10 @@
 <div class="date-time-container">
-  <div class="time-row">
-    <span class="time-text">
+  <div class="time">
+    <span class="hours-minutes">
       {{ currentDateTime() | date: 'h:mm' }}
     </span>
 
-    <div class="time-details">
+    <div class="period-second-column">
       <span class="period">
         {{ currentDateTime() | date: 'a' }}
       </span>
