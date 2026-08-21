@@ -25,7 +25,7 @@ import { LongTermGoalStore } from 'src/app/core/store/long-term-goal/long-term-g
 })
 export class LongTermGoalsComponent implements OnInit {
   readonly authStore = inject(AuthStore);
-  readonly longtermGoalStore = inject(LongTermGoalStore);
+  readonly longTermGoalStore = inject(LongTermGoalStore);
 
   // --------------- INPUTS AND OUTPUTS ------------------
 
@@ -38,9 +38,7 @@ export class LongTermGoalsComponent implements OnInit {
   loading: WritableSignal<boolean> = signal(false);
   
    longTermGoals: Signal<LongTermGoal | undefined> = computed(() => {
-     const user = this.currentUser()?.__id;
-     if (!user) return undefined;
-     const longGoals = this.longtermGoalStore.selectFirst([["__userId", "==", user]],{});
+     const longGoals = this.longTermGoalStore.selectFirst([["__userId", "==", this.currentUser()?.__id]],{});
      return longGoals;                                  
       });
 
@@ -70,6 +68,24 @@ export class LongTermGoalsComponent implements OnInit {
        });  
      }
 
+  
+  /** adding new goals. */
+  async addNewGoal(controlValue){
+    await this.longTermGoalStore.add(Object.assign({}, { 
+      __userId: this.currentUser()?.__id,
+      oneYear: controlValue.oneYear,
+      fiveYear: controlValue.fiveYear,
+    }));
+  }
+
+  /** updating existing long term goals. */
+  async updateNewGoal(controlValue){
+    await this.longTermGoalStore.update(this.longTermGoals()?.__id,Object.assign( {},{
+      oneYear: controlValue.oneYear,
+      fiveYear: controlValue.fiveYear,
+    }));
+  }
+
   // --------------- OTHER -------------------------------
 
  constructor(
@@ -79,25 +95,8 @@ export class LongTermGoalsComponent implements OnInit {
 
   // --------------- LOAD AND CLEANUP --------------------
 
-  //fetching the long term goals from the firestore to the signal store
+  /** fetching the long term goals from the firestore to the signal store. */
   async ngOnInit() {
-     await this.longtermGoalStore.load([["__userId", "==", this.currentUser()?.__id]], {});
-  }
-
-  //adding new goals
-  async addNewGoal(controlValue){
-    await this.longtermGoalStore.add(Object.assign({}, { 
-      __userId: this.currentUser()?.__id,
-      oneYear: controlValue.oneYear,
-      fiveYear: controlValue.fiveYear,
-    }));
-  }
-
-  //updating existing long term goals
-  async updateNewGoal(controlValue){
-    await this.longtermGoalStore.update(this.longTermGoals()?.__id,Object.assign( {},{
-      oneYear: controlValue.oneYear,
-      fiveYear: controlValue.fiveYear,
-    }));
+     await this.longTermGoalStore.load([["__userId", "==", this.currentUser()?.__id]], {});
   }
 }
