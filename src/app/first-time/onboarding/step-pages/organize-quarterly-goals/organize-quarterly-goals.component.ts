@@ -21,6 +21,12 @@ export class OrganizeQuarterlyGoalsComponent implements OnInit {
   /** The current signed in user. */
   currentUser: Signal<User> = this.authStore.user;
 
+  /** Emitted when the user clicks the Back button. */
+  back = output<void>();
+
+  /** Emitted when the user clicks the Next button. */
+  next = output<void>();
+
   // --------------- LOCAL UI STATE ----------------------
 
   /** Loading icon. */
@@ -29,6 +35,14 @@ export class OrganizeQuarterlyGoalsComponent implements OnInit {
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
+
+  onBack(): void {
+    this.back.emit();
+  }
+
+  onNext(): void {
+    this.next.emit();
+  }
 
   // --------------- OTHER -------------------------------
 
