@@ -1,3 +1,31 @@
 <div class="weekly-goals-container">
-  <app-weekly-goals-header/>
+  <app-weekly-goals-header
+    (editClicked)="openModal($event)"
+  />
+
+  <div class="card-body">
+    <div class="goals-list">
+      @for (goal of incompleteWeeklyGoals(); track goal.__id) {
+        <app-weekly-goals-item
+          [weeklyGoal]="goal"
+          (completedChange)="checkGoal(goal, $event)"
+        />
+      }
+
+      @for (goal of completeWeeklyGoals(); track goal.__id) {
+        <app-weekly-goals-item
+          [weeklyGoal]="goal"
+          (completedChange)="checkGoal(goal, $event)"
+        />
+      }
+    </div>
+
+    <button
+      type="button"
+      class="add-goal"
+      (click)="openModal(false)"
+    >
+      + Add a weekly goal
+    </button>
+  </div>
 </div>
