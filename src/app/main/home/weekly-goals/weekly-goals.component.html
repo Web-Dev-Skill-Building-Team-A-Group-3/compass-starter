@@ -29,35 +29,3 @@
     </button>
   </div>
 </div>
-
-<!-- From the walkthrough
-
-<div class="weekly-goals-container">
-  <app-weekly-goals-header (editClicked)="openModal($event)" />
-  <div class="card-body">
-    <div class="goals-list">
-      @for (goal of incompleteWeeklyGoals(); track goal.__id) {
-        <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)" />
-      }
-      @for (goal of completeWeeklyGoals(); track goal.__id) {
-        <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)" />
-      }
-    </div>
-    <button class="add-goal" (click)="openModal(true)">
-      + Add a weekly goal
-    </button>
-  </div>
-</div>
-
--->
-
-
-<!-- from prev work
-
-<div class="weekly-goals-container">
-  <button (click) = "openModal(true)"> Evil button</button>
-  <app-weekly-goals-item
-    [weeklyGoal]="incompleteWeeklyGoals()[0]">
-  </app-weekly-goals-item>
-
--->

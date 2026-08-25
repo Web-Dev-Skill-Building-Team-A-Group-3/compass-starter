@@ -20,61 +20,30 @@ html {
   @include mat.core-theme($compass-theme);
   @include mat.typography-hierarchy($compass-theme);
   @include mat.all-component-typographies($compass-theme);
-// Start of check button override  
   @include mat.checkbox-overrides((
-  state-layer-size: 24px,
-  touch-target-display: none,
-                                  
-  unselected-icon-color: $primary,
-  unselected-hover-icon-color: $primary,
-  unselected-focus-icon-color: $primary,
-
-  selected-icon-color: #ffffff,
-  selected-hover-icon-color: #ffffff,
-  selected-focus-icon-color: #ffffff,
-  selected-checkmark-color: $primary,
-
-  unselected-hover-state-layer-opacity: 0,
-  unselected-focus-state-layer-opacity: 0,
-  unselected-pressed-state-layer-opacity: 0,
-                                
-  selected-hover-state-layer-opacity: 0,
-  selected-focus-state-layer-opacity: 0,
-  selected-pressed-state-layer-opacity: 0,
-));
+    touch-target-display: none,
+    unselected-icon-color: $primary,
+    unselected-hover-icon-color: $primary,
+    unselected-focus-icon-color: $primary,
+    selected-icon-color: $primary,
+    selected-hover-icon-color: $primary,
+    selected-focus-icon-color: $primary,
+    selected-checkmark-color: #ffffff,
+    unselected-hover-state-layer-opacity: 0,
+    unselected-focus-state-layer-opacity: 0,
+    unselected-pressed-state-layer-opacity: 0,                       
+    selected-hover-state-layer-opacity: 0,
+    selected-focus-state-layer-opacity: 0,
+    selected-pressed-state-layer-opacity: 0,
+  ));
 }
-.mat-mdc-checkbox
-  .mdc-checkbox__native-control:enabled:checked
-  ~ .mdc-checkbox__background {
-  background-color: #ffffff !important;
-  border-color: $primary !important;
-}
-.mat-mdc-checkbox
-  .mdc-checkbox__native-control:enabled:checked
-  ~ .mdc-checkbox__background
-  .mdc-checkbox__checkmark {
-  color: $primary !important;
-}
-// End of check button override 
 
-html, body, app-root {
+html,
+body,
+app-root {
   height: 100%;
   box-sizing: border-box;
   padding: 0;
   overflow-x: clip;
   margin: 0;
-  font-family: "Oxygen", Roboto, "Helvetica Neue", sans-serif;
-}
-
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-body {
-  background-color: #F2FFFE;
-}
-
-input, button, select, textarea {
-    font-family: inherit;
 }

@@ -3,6 +3,9 @@ import { GreetingAnimations } from './greeting.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
+import { interval, map } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+
 
 @Component({
   selector: 'app-greeting',
@@ -27,7 +30,27 @@ export class GreetingComponent implements OnInit {
   loading: WritableSignal<boolean> = signal(false);
 
   // --------------- COMPUTED DATA -----------------------
-
+  
+    time: Signal<Date> = toSignal(
+      interval(1000).pipe(
+        map(() => new Date())
+      ),
+      { initialValue: new Date() }
+    );
+  
+    greeting: Signal<string> = computed(() => {
+      const currentHour = this.time().getHours();
+      let greetingMessage: string;
+      if (currentHour >= 5 && currentHour < 12) {
+        greetingMessage = 'Good morning';
+      } else if (currentHour < 18) {
+        greetingMessage = 'Good afternoon';
+      } else {
+        greetingMessage = 'Good evening';
+      }
+      return greetingMessage;
+    });
+  
   // --------------- EVENT HANDLING ----------------------
 
   // --------------- OTHER -------------------------------

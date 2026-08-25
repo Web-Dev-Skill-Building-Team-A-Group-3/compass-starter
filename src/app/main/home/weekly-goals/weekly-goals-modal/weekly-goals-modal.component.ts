@@ -1,12 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
 import { WeeklyGoalsModalAnimations } from './weekly-goals-modal.animations';
-import { MAT_DIALOG_DATA, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
-import { FormArray, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
 import { WeeklyGoal } from 'src/app/core/store/weekly-goal/weekly-goal.model';
-import { QuarterlyGoalData, WeeklyGoalInForm } from '../../home.model';
+import { QuarterlyGoalsData, WeeklyGoalInForm } from '../../home.model';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField } from '@angular/material/form-field';
@@ -15,6 +13,9 @@ import { MatInput } from '@angular/material/input';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { endOfWeek, startOfWeek } from 'src/app/core/utils/time.utils';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormArray, FormBuilder } from '@angular/forms';
+
 @Component({
   selector: 'app-weekly-goals-modal',
   templateUrl: './weekly-goals-modal.component.html',
@@ -23,115 +24,46 @@ import { endOfWeek, startOfWeek } from 'src/app/core/utils/time.utils';
   animations: WeeklyGoalsModalAnimations,
   standalone: true,
   imports: [
-    MatIconButton,
-    MatDialogClose,
-    MatIcon,
-    FormsModule,
-    ReactiveFormsModule,
-    CdkDropList,
-    CdkDrag,
-    CdkDragHandle,
-    MatFormField,
-    MatInput,
-    MatSelect,
-    MatSelectTrigger,
-    MatOption,
-    
   ],
 })
 export class WeeklyGoalsModalComponent implements OnInit {
   readonly authStore = inject(AuthStore);
+
+  allGoals : FormArray;
   // --------------- INPUTS AND OUTPUTS ------------------
+
+  /** The current signed in user. */
   currentUser: Signal<User> = this.authStore.user;
 
   // --------------- LOCAL UI STATE ----------------------
-  weeklyGoalsForm = this.fb.group({
-    allGoals: this.fb.array([
-      this.fb.group({
-        text: ['', Validators.required],
-        originalText: [''],
-        originalOrder: [1],
-        __weeklyGoalId: [''],
-        __quarterlyGoalId: [''], 
-      }),
-    ]),
-  });
+
+  /** Loading icon. */
+  loading: WritableSignal<boolean> = signal(false);
 
   // --------------- COMPUTED DATA -----------------------
-  get allGoals() {
-    return this.weeklyGoalsForm.get('allGoals') as FormArray;
-  }
-  get addedGoalsCount() {
-    return this.allGoals.controls.filter(
-      (goal) => goal.value._new && !goal.value._deleted
-    ).length;
-  }
-  get editedGoalsCount() {
-    return this.allGoals.controls.filter(
-      (goal) =>
-        goal.dirty &&
-        goal.value.text !== goal.value.originalText &&
-        !goal.value._new &&
-        !goal.value._deleted
-    ).length;
-  }
-  get deletedGoalsCount() {
-    return this.allGoals.controls.filter((goal) => goal.value._deleted).length;
-  }
-  endOfWeek = endOfWeek;
-  startOfWeek = startOfWeek;
 
   // --------------- EVENT HANDLING ----------------------
-  addGoalToForm(goal: WeeklyGoalInForm) {
+  async addGoalToForm(goal: Partial<WeeklyGoalInForm> | null) {
     this.allGoals.push(
       this.fb.group({
-        text: [goal ? goal.text : '', [Validators.required, Validators.pattern('.*\\S.*')]],
-        __quarterlyGoalId: [goal ? goal.__quarterlyGoalId : '', Validators.required],
-        originalText: [goal ? goal.text : ''],
-        _deleted: [goal ? goal._deleted : false],
-        _new: [goal ? false : true],
+         text: [goal?.text??''],
+         __quarterlyGoalId:[goal?.__quarterlyGoalId ?? null],
+         originalText: [goal?.originalText ?? ''],
+         originalOrder:[goal?.originalOrder??''],
+         originalQuarterlyGoalId:[goal?.originalQuarterlyGoalId??''],
+         __weeklyGoalId:[goal?.__weeklyGoalId ?? null],
+         _deleted:[goal?._deleted ?? false],
+         _new: [goal?._new ?? true],
       })
     );
-    }
-  drop(event: CdkDragDrop<WeeklyGoal[]>) {
-    moveItemInArray(
-      this.allGoals.controls,
-      event.previousIndex,
-      event.currentIndex,
-    );
   }
-  moveItemInFormArray(
-    formArray: FormArray,
-    fromIndex: number,
-    toIndex: number,
-  ) {
-    const dir = toIndex > fromIndex ? 1 : -1;
-    const from = fromIndex;
-    const to = toIndex;
-    const temp = formArray.at(from);
-    for (let i = from; i * dir < to * dir; i = i + dir) {
-      const current = formArray.at(i + dir);
-      formArray.setControl(i, current);
-    }
-    formArray.setControl(to, temp);
-  }
-  fullDelete(e, i) {
-    if (
-      e.target.checked &&
-      this.weeklyGoalsForm.get(['allGoals', i, '_new']).value
-    ) {
-      this.allGoals.removeAt(i);
-    }
-  }
-  async saveGoals() {
-    await this.data.updateWeeklyGoals(this.allGoals);
-  }
-// --------------- OTHER -------------------------------
+  // --------------- OTHER -------------------------------
+
   constructor(
     private injector: Injector,
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      goalDatas: Partial<QuarterlyGoalData>[];
+      goalDatas: Partial<QuarterlyGoalsData>[];
       incompleteGoals: WeeklyGoal[];
       emptyRow: boolean;
       updateWeeklyGoals: (weeklyGoalsFormArray: FormArray) => Promise<void>;
@@ -139,6 +71,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
     public dialogRef: MatDialogRef<WeeklyGoalsModalComponent>,
     private fb: FormBuilder,
   ) {
+    this.allGoals = this.fb.array([]);
     this.allGoals.clear();
     if (this.data.incompleteGoals.length == 0) {
       this.addGoalToForm(null);
@@ -160,7 +93,9 @@ export class WeeklyGoalsModalComponent implements OnInit {
       }
     }
   }
+
   // --------------- LOAD AND CLEANUP --------------------
+  
   ngOnInit(): void {
   }
 }

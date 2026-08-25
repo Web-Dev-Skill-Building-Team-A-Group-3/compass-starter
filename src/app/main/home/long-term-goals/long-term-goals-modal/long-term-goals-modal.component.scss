@@ -1,7 +1,125 @@
 :host {
   display: block;
+
   .long-term-goals-modal-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+    position: relative;
+
+
+    padding: 35px 35px 35px 35px;
+
+    border-style: solid;
+    border-color: #FFFFFF;
+    background-color: white;
+
+    font-family: Oxygen, sans-serif;
+    color: #586461;
+
+    .modal-header {
+       .title{
+        color: #4B5853;
+        font-family: Oxygen;
+        font-size: 30px;
+        font-weight: 400;
+       }
+      .subtitle{
+          color: #4B5853;
+          font-family: Oxygen;
+          font-size: 25px;
+          font-weight: 700;
+        }
+
+
+    }
+
+    .close-button {
+      position: absolute;
+      top: 34px;
+      right: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: #4B5853;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      font-size: 28px;
+      line-height: 1;
+  
+    }
+
+    .goal-section {
+      margin-bottom: 35px;
+      h3 {
+      margin: 0 0 8px 0;
+      font-size: 25px;
+      font-weight: 400;
+      line-height: 1;
+      color: #4B5853;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 3px;
+
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.2;
+      }
+
+      textarea{
+        display: block;
+        width: 100%;
+        height: 20px;
+        padding: 0px 0px 0px 0px;
+        border: none;
+        border-bottom: 1.25px solid #4B5853;
+        outline: none;
+        background: transparent;
+        font-family: Oxygen, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1;
+        color: #596360;
+        &:focus {
+          border-bottom-color: #2dbdb1;
+        }
+      }
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 90px;
+     
+
+      .edit-message {
+        font-size: 22.5px;
+        font-weight: 300;
+        color: #4B5853;
+      }
+
+      .save-button {
+        width: 141px;
+        height: 42px;
+        border-radius: 12px;
+        background-color: #2DBDB1;
+        color: white;
+        border: none;
+        font-family: Oxygen, sans-serif;
+        font-size: 22.5px;
+        cursor: pointer;
+        &:disabled {
+          opacity: 0.5;
+          cursor: default;
+        }
+      }
+    }
   }
 }
