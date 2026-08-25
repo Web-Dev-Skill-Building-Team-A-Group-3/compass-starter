@@ -13,6 +13,8 @@ import { MatInput } from '@angular/material/input';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { endOfWeek, startOfWeek } from 'src/app/core/utils/time.utils';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormArray, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-weekly-goals-modal',
@@ -26,6 +28,8 @@ import { endOfWeek, startOfWeek } from 'src/app/core/utils/time.utils';
 })
 export class WeeklyGoalsModalComponent implements OnInit {
   readonly authStore = inject(AuthStore);
+
+  allGoals : FormArray;
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
@@ -39,7 +43,20 @@ export class WeeklyGoalsModalComponent implements OnInit {
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
-
+  async addGoalToForm(goal: Partial<WeeklyGoalInForm> | null) {
+    this.allGoals.push(
+      this.fb.group({
+         text: [goal?.text??''],
+         __quarterlyGoalId:[goal?.__quarterlyGoalId ?? null],
+         originalText: [goal?.originalText ?? ''],
+         originalOrder:[goal?.originalOrder??''],
+         originalQuarterlyGoalId:[goal?.originalQuarterlyGoalId??''],
+         __weeklyGoalId:[goal?.__weeklyGoalId ?? null],
+         _deleted:[goal?._deleted ?? false],
+         _new: [goal?._new ?? true],
+      })
+    );
+  }
   // --------------- OTHER -------------------------------
 
   constructor(
@@ -54,6 +71,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
     public dialogRef: MatDialogRef<WeeklyGoalsModalComponent>,
     private fb: FormBuilder,
   ) {
+    this.allGoals = this.fb.array([]);
     this.allGoals.clear();
     if (this.data.incompleteGoals.length == 0) {
       this.addGoalToForm(null);
@@ -75,6 +93,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
       }
     }
   }
+
   // --------------- LOAD AND CLEANUP --------------------
   
   ngOnInit(): void {
