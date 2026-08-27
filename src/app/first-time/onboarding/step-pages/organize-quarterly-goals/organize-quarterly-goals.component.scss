@@ -1,41 +1,13 @@
 :host {
   display: block;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #f2fbfb;
-  font-family: 'Oxygen', sans-serif;
-  box-sizing: border-box;
 }
 
 .organize-quarterly-goals-container {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem 1rem;
   box-sizing: border-box;
-
-  .top-back-btn {
-    position: absolute;
-    top: 1.5rem;
-    left: 1.5rem;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid #2dbdb1;
-    background: #fff;
-    color: #2dbdb1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-
-    &:hover { background-color: #e1fbf9; }
-    &:active { transform: scale(0.95); }
-  }
 
   .card {
     background: #fff;
@@ -53,18 +25,9 @@
     .icon-container {
       margin-bottom: 1.5rem;
 
-      .compass-circle {
+      .compass-logo {
         width: 90px;
         height: 90px;
-        border-radius: 50%;
-        border: 2px solid #2dbdb1;
-        background: linear-gradient(135deg, #fff 0%, #e1fbf9 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 12px rgba(45, 189, 177, 0.15);
-
-        .compass-icon { transform: rotate(-45deg); }
       }
     }
 

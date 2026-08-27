@@ -40,7 +40,7 @@ describe('OrganizeQuarterlyGoalsComponent', () => {
       emitted = true;
     });
 
-    const backButton = fixture.nativeElement.querySelector('.back-btn') as HTMLButtonElement;
+    const backButton = fixture.nativeElement.querySelector('.btn-outlined') as HTMLButtonElement;
     expect(backButton).toBeTruthy();
     backButton.click();
 
@@ -53,7 +53,7 @@ describe('OrganizeQuarterlyGoalsComponent', () => {
       emitted = true;
     });
 
-    const nextButton = fixture.nativeElement.querySelector('.next-btn') as HTMLButtonElement;
+    const nextButton = fixture.nativeElement.querySelector('.btn-filled') as HTMLButtonElement;
     expect(nextButton).toBeTruthy();
     nextButton.click();
 
