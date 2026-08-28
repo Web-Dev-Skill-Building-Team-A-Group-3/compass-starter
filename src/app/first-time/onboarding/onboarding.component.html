@@ -1,3 +1,10 @@
 <div class="onboarding-container">
-   <div>add onboarding flow here!</div>
+  @switch (currentUser()?.onboardingState) {
+    @case (OnboardingState.STEP_5) {
+      <app-organize-quarterly-goals (back)="onOrganizeQuarterlyGoalsBack()" (next)="onOrganizeQuarterlyGoalsNext()" />
+    }
+    @default {
+      <div>add onboarding flow here!</div>
+    }
+  }
 </div>

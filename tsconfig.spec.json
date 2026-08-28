@@ -9,11 +9,17 @@
     "esModuleInterop": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "outDir": "./out-tsc/spec"
   },
+  "files": [
+    "src/main.ts"
+  ],
   "include": [
     "src/**/*.spec.ts",
+    "src/**/*.ts",
     "src/**/*.d.ts"
   ]
 }
