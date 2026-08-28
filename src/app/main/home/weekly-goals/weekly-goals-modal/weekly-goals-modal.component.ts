@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { WeeklyGoalsModalAnimations } from './weekly-goals-modal.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
@@ -42,6 +44,10 @@ export class WeeklyGoalsModalComponent implements OnInit {
 
   // --------------- OTHER -------------------------------
 
+  allGoals = new FormArray([]);
+  
+  addGoalToForm(goal: any): void {}
+
   constructor(
     private injector: Injector,
     @Inject(MAT_DIALOG_DATA)
@@ -70,13 +76,13 @@ export class WeeklyGoalsModalComponent implements OnInit {
           _new: false,
         });
       });
-      if (this.data.emptyRow){
-      this.addGoalToForm(null);
+      if (this.data.emptyRow) {
+        this.addGoalToForm(null);
       }
     }
   }
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit(): void {
   }
 }

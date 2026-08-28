@@ -4,7 +4,7 @@ import { User, OnboardingState } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
 import { OrganizeQuarterlyGoalsComponent } from './step-pages/organize-quarterly-goals/organize-quarterly-goals.component';
-import { DATABASE_SERVICE } from 'src/app/core/firebase/database.service';
+import { UserStore } from 'src/app/core/store/user/user.store';
 
 @Component({
   selector: 'app-onboarding',
@@ -19,7 +19,7 @@ import { DATABASE_SERVICE } from 'src/app/core/firebase/database.service';
 })
 export class OnboardingComponent implements OnInit {
   authStore = inject(AuthStore);
-  private db = inject(DATABASE_SERVICE);
+  readonly userStore = inject(UserStore);
   
   // --------------- INPUTS AND OUTPUTS ------------------
 
@@ -37,14 +37,14 @@ export class OnboardingComponent implements OnInit {
   async onOrganizeQuarterlyGoalsBack(): Promise<void> {
     const user = this.currentUser();
     if (user) {
-      await this.db.updateEntity('users', user.__id, { onboardingState: OnboardingState.STEP_4 });
+      await this.userStore.update(user.__id, { onboardingState: OnboardingState.STEP_4 });
     }
   }
 
   async onOrganizeQuarterlyGoalsNext(): Promise<void> {
     const user = this.currentUser();
     if (user) {
-      await this.db.updateEntity('users', user.__id, { onboardingState: OnboardingState.STEP_6 });
+      await this.userStore.update(user.__id, { onboardingState: OnboardingState.STEP_6 });
     }
   }
 
