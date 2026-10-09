@@ -14,6 +14,3 @@ export interface WeeklyGoal {
   _updatedAt?: Timestamp;
   _deleted?: boolean;
 }
-
-                                    
-                                                   
