@@ -25,6 +25,7 @@ import { getStartWeekDate } from '../../../core/utils/time.utils';
   standalone: true,
   imports: [
     WeeklyGoalsHeaderComponent,
+    WeeklyGoalsItemComponent,
   ],
 })
 export class WeeklyGoalsComponent  implements OnInit {
