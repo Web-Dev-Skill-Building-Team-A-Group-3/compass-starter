@@ -1,7 +1,140 @@
 :host {
-  display: block;
-  .onboard-long-term-transition-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+  background: #F2FFFE;
+  padding: 16px;
+  box-sizing: border-box;
+
+
+  .transition-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+
+    .icon-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 24px;
+
+      .compass-logo {
+        width: 130px;
+        height: 130px;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #333333;
+      margin: 0 0 16px 0;
+      line-height: 1.2;
+      font-family: 'Oxygen', sans-serif;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      color: #545756;
+      line-height: 1.5;
+      margin: 0 auto 36px auto;
+      max-width: 380px;
+      font-family: 'Oxygen', sans-serif;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+
+      button {
+        font-family: 'Oxygen', sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        min-width: 110px;
+        height: 42px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .btn-back {
+        background-color: transparent;
+        color: #2DBDB1;
+        border: 1.5px solid #2DBDB1;
+
+        &:hover {
+          background-color: rgba(45, 189, 177, 0.08);
+        }
+      }
+
+      .btn-next {
+        background-color: #2DBDB1;
+        color: #FFFFFF;
+        border: none;
+
+        &:hover {
+          background-color: #27a89d;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 0 16px;
+
+    .transition-card {
+      background: transparent;
+      box-shadow: none;
+      padding: 24px 8px;
+
+      .icon-container {
+        margin-top: 40px;
+        margin-bottom: 24px;
+
+        .compass-logo {
+          width: 120px;
+          height: 120px;
+        }
+      }
+
+      .title {
+        font-size: 28px;
+        margin-bottom: 14px;
+      }
+
+      .subtitle {
+        font-size: 15px;
+        max-width: 290px;
+        margin-bottom: 48px;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+
+        button {
+          flex: 1;
+          height: 44px;
+        }
+      }
+    }
   }
 }
+

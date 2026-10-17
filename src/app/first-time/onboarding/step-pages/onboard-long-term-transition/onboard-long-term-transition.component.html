@@ -1,3 +1,18 @@
-<div class="onboard-long-term-transition-container">
-  onboard-long-term-transition works!
+<div class="transition-card">
+  <div class="icon-container">
+    <img class="compass-logo" src="/images/logo.svg" alt="Compass">
+  </div>
+  <h1 class="title">Nice work.</h1>
+  <p class="subtitle">
+    What are a few goals you can set this quarter to reach your long term goals? Start with three.
+  </p>
+  <div class="actions">
+    <button mat-stroked-button class="btn-back" (click)="onBack()">
+      Back
+    </button>
+    <button mat-flat-button class="btn-next" (click)="onNext()">
+      Next
+    </button>
+  </div>
 </div>
+
