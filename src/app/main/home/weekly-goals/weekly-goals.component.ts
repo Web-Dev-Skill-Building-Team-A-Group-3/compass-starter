@@ -25,6 +25,7 @@ import { getStartWeekDate } from '../../../core/utils/time.utils';
   standalone: true,
   imports: [
     WeeklyGoalsHeaderComponent,
+    WeeklyGoalsItemComponent
   ],
 })
 export class WeeklyGoalsComponent  implements OnInit {
@@ -45,8 +46,8 @@ export class WeeklyGoalsComponent  implements OnInit {
 
   /** Loading icon. */
   loading: WritableSignal<boolean> = signal(false);
-
-  //function to replace the fake hardcoded array for incompleteGoals: 
+ 
+  /* Pulls ordered goals that have not yet been marked as incomplete for the user ID specified in this.currentUser(). */
   incompleteWeeklyGoals: Signal<WeeklyGoalData[]> = computed(()=> { 
     const incompleteGoals = this.weeklyGoalStore.selectEntities([
     ['__userId', '==',this.currentUser()?.__id],
@@ -60,7 +61,7 @@ export class WeeklyGoalsComponent  implements OnInit {
   });
 });
 
-  //function to replace the fake hardcoded text for completed goals: 
+  /* Pulls an ordered list of completed goals belonging to a specific user defined by their user ID. */
   completeWeeklyGoals: Signal<WeeklyGoalData[]> = computed(()=> {
     const completedGoals = this.weeklyGoalStore.selectEntities(
       [['__userId','==',this.currentUser()?.__id],
@@ -161,6 +162,8 @@ export class WeeklyGoalsComponent  implements OnInit {
     	}
       }
     // --------------- LOAD AND CLEANUP --------------------
+
+  /*  On initialization, load all new incomplete and complete goals within a seven day window, and also get related data (such as quarter goals that the weekly goals work towards, etc.) */
     private readonly loadGoalRelations = (goal: WeeklyGoal) => [
   LoadQuarterlyGoal.create(
     this.quarterlyGoalStore,

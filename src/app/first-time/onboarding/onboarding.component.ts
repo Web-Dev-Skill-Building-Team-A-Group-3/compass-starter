@@ -10,7 +10,7 @@ import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch
   styleUrls: ['./onboarding.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  animations: OnboardingAnimations,
+  animations: OnboardingAnimations, 
 })
 export class OnboardingComponent implements OnInit {
   authStore = inject(AuthStore);

@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
 import { WeeklyGoalsItemAnimations } from './weekly-goals-item.animations';
+import { WeeklyGoalData } from '../../home.model';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
@@ -18,7 +19,11 @@ export class WeeklyGoalsItemComponent implements OnInit {
   readonly authStore = inject(AuthStore);
   // --------------- INPUTS AND OUTPUTS ------------------
 
-  /** The current signed in user. */
+  /* Defines the inputs and outputs for the weekly goals input fields.*/
+  weeklyGoal = input.required<WeeklyGoalData>();
+  completedChange = output<boolean>();
+
+  /** The current signed in user. */ 
   currentUser: Signal<User> = this.authStore.user;
 
   // --------------- LOCAL UI STATE ----------------------
