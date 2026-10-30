@@ -1,4 +1,5 @@
-<div class="date-time-container">
+<div class="date-time-container" 
+     [attr.aria-label]="currentDateTime() | date: 'h:mm a, EEEE, MMMM d, y'">
   <div class="time">
     <span class="hours-minutes">
       {{ currentDateTime() | date: 'h:mm' }}

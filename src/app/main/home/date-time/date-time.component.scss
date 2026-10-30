@@ -1,18 +1,19 @@
 .date-time-container {
+  
   display: flex;
   font-family: Oxygen, sans-serif;
   flex-direction: column;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  background-color: #F2FFFE;
+  background-color: #f2fffe;
+  align-items: flex-end;
 
-
-  .time{
-    display: flex;
-    margin-left: auto;
+  .time {
     
-    .hours-minutes{
+    display: flex;
+    
+    .hours-minutes {
       
       font-size: 56px;
       font-weight: 500;
@@ -21,25 +22,29 @@
       color: #2dbdb1;
       padding-left: 20px;
     }
-    .period-second-column{
+    
+    .period-second-column {
+      
       display: flex;
       flex-direction: column;
       font-size: 15px;
-      color: #2DBDB1;
+      color: #2dbdb1;
       font-weight: 500;
       padding: 23px 0 0 5px;
       line-height: 1;
       
-      .seconds{
+      .seconds {
+        
         letter-spacing: 22%;
       }
     }
   }
 
-  .date{
+  .date {
+    
     padding: 0 0 5px 0;
-    font-size: 18.75px;
+    font-size: 18px;
     text-align: right;
-    color: #4B5853;
+    color: #4b5853;
   }
 }
