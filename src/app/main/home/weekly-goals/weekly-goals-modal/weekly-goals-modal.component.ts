@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
 import { WeeklyGoalsModalAnimations } from './weekly-goals-modal.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
@@ -13,6 +13,9 @@ import { MatInput } from '@angular/material/input';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { endOfWeek, startOfWeek } from 'src/app/core/utils/time.utils';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormArray, FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-weekly-goals-modal',
@@ -21,11 +24,11 @@ import { endOfWeek, startOfWeek } from 'src/app/core/utils/time.utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: WeeklyGoalsModalAnimations,
   standalone: true,
-  imports: [
-  ],
+  imports: [CommonModule, ReactiveFormsModule, ],
 })
-export class WeeklyGoalsModalComponent implements OnInit {
+export class WeeklyGoalsModalComponent {
   readonly authStore = inject(AuthStore);
+  
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
@@ -36,12 +39,22 @@ export class WeeklyGoalsModalComponent implements OnInit {
   /** Loading icon. */
   loading: WritableSignal<boolean> = signal(false);
 
+  /** Holds all of the rows for weeklygoals that are being shown in the modal. */
+  weeklyGoalsForm = this.fb.group({
+  	allGoals: this.fb.array([])
+    });
   // --------------- COMPUTED DATA -----------------------
-
+  /** Get all of the goals in WeeklyGoalsForm. */
+  get allGoals() {
+	return this.weeklyGoalsForm.get('allGoals') as FormArray;
+  }
   // --------------- EVENT HANDLING ----------------------
-
+  addGoalToForm(goal: any | null) {
+  	
+  }
   // --------------- OTHER -------------------------------
 
+  
   constructor(
     private injector: Injector,
     @Inject(MAT_DIALOG_DATA)
@@ -75,8 +88,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
       }
     }
   }
+  
   // --------------- LOAD AND CLEANUP --------------------
   
-  ngOnInit(): void {
-  }
 }

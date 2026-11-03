@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
 import { WeeklyGoalsAnimations } from './weekly-goals.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
@@ -22,7 +22,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
     WeeklyGoalsHeaderComponent,
   ],
 })
-export class WeeklyGoalsComponent implements OnInit {
+export class WeeklyGoalsComponent {
   readonly authStore = inject(AuthStore);
   // --------------- INPUTS AND OUTPUTS ------------------
 
@@ -34,6 +34,7 @@ export class WeeklyGoalsComponent implements OnInit {
   /** Loading icon. */
   loading: WritableSignal<boolean> = signal(false);
 
+  /** Placeholder data that is being used until we can use real data. */
   quarterlyGoals: Signal<QuarterlyGoalsData[]> = signal([
     {
       __id: 'qg1',
@@ -99,7 +100,8 @@ export class WeeklyGoalsComponent implements OnInit {
       weeklyGoalsComplete: 1,
     },
   ]);
-  
+
+  /** Reference to the open the WeeklyGoal Modal, allowing us to read/close the modal. */
   dialogRef: MatDialogRef<any>;
   
   // --------------- COMPUTED DATA -----------------------
@@ -117,6 +119,4 @@ export class WeeklyGoalsComponent implements OnInit {
 
   // --------------- LOAD AND CLEANUP --------------------
   
-  ngOnInit(): void {
-  }
 }
