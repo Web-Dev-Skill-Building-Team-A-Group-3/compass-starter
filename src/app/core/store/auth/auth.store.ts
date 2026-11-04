@@ -94,7 +94,7 @@ export const AuthStore = signalStore(
             email: afUser.email,
             name: afUser.displayName || afUser.email,
             photoURL: afUser.photoURL,
-            onboardingState: OnboardingState.WELCOME,
+            onboardingState: OnboardingState.DONE,
             tokens: tokenHash,
           };
           try {

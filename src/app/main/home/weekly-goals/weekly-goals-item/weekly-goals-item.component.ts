@@ -21,11 +21,12 @@ export class WeeklyGoalsItemComponent implements OnInit {
 
   /* Defines the inputs and outputs for the weekly goals input fields.*/
   weeklyGoal = input.required<WeeklyGoalData>();
+  
+  /* Outputs a boolean to signify whether a goal has been completed or not / completed state has been changed. */
   completedChange = output<boolean>();
 
   /** The current signed in user. */ 
   currentUser: Signal<User> = this.authStore.user;
-
   // --------------- LOCAL UI STATE ----------------------
 
   /** Loading icon. */

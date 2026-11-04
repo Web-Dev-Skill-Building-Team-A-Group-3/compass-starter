@@ -25,7 +25,7 @@ import { getStartWeekDate } from '../../../core/utils/time.utils';
   standalone: true,
   imports: [
     WeeklyGoalsHeaderComponent,
-    WeeklyGoalsItemComponent
+    WeeklyGoalsItemComponent,
   ],
 })
 export class WeeklyGoalsComponent  implements OnInit {
@@ -35,7 +35,6 @@ export class WeeklyGoalsComponent  implements OnInit {
   readonly weeklyGoalStore = inject(WeeklyGoalStore);
   readonly hashtagStore = inject(HashtagStore);
   readonly quarterlyGoalStore = inject(QuarterlyGoalStore);
-  private batch: BatchWriteService = inject(BATCH_WRITE_SERVICE);
   
   // --------------- INPUTS AND OUTPUTS ------------------
 
@@ -129,7 +128,8 @@ export class WeeklyGoalsComponent  implements OnInit {
   // --------------- OTHER -------------------------------
 
     constructor(
-     private injector: Injector,
+       @Inject(BATCH_WRITE_SERVICE) private batch: BatchWriteService,
+       private injector: Injector,
 ) { }
 
     
