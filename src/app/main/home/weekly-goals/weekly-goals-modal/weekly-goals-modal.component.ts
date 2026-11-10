@@ -67,6 +67,7 @@ export class WeeklyGoalsModalComponent {
     public dialogRef: MatDialogRef<WeeklyGoalsModalComponent>,
     private fb: FormBuilder,
   ) {
+    this.allGoals = this.fb.array([]);
     this.allGoals.clear();
     if (this.data.incompleteGoals.length == 0) {
       this.addGoalToForm(null);

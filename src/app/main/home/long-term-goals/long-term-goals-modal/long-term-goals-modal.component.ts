@@ -20,10 +20,12 @@ export class LongTermGoalsModalComponent implements OnInit {
   readonly authStore = inject(AuthStore);
   private readonly dialogRef = inject(MatDialogRef<LongTermGoalsModalComponent>);
   private readonly data = inject( MAT_DIALOG_DATA );
+  
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
   currentUser: Signal<User> = this.authStore.user;
+  
   /** Consts for the goals*/
   oneYearGoal = model(this.data.longTermGoal.oneYear);
   fiveYearGoal = model(this.data.longTermGoal.fiveYear);
@@ -42,10 +44,9 @@ export class LongTermGoalsModalComponent implements OnInit {
   // --------------- EVENT HANDLING ----------------------
   onSave(): void {
       if (this.isSaveDisabled()) return;
-  
-      this.dialogRef.close({
-        oneYearGoal: this.oneYearGoal().trim(),
-        fiveYearGoal: this.fiveYearGoal().trim()
+      this.data.onSaveAfterClick({
+        oneYear: this.oneYearGoal().trim(),
+        fiveYear: this.fiveYearGoal().trim()
       });
     }
 

@@ -1,3 +1,22 @@
 <div class="weekly-goals-item-container">
-  weekly-goals-item works!
+<mat-checkbox
+  class="weekly-goal-checkbox"
+  [checked]="weeklyGoal().completed"
+  [disableRipple]="true"
+  (change)="onCompletedChange($event.checked)">
+</mat-checkbox>
+
+  <div class="weekly-goal-content">
+    <p
+      class="weekly-goal-text"
+      [class.completed]="weeklyGoal().completed">
+      {{ weeklyGoal().text }}
+    </p>
+
+    <p
+      class="weekly-goal-hashtag"
+      [style.color]="weeklyGoal().hashtag.color">
+      #{{ weeklyGoal().hashtag.name }}
+    </p>
+  </div>
 </div>

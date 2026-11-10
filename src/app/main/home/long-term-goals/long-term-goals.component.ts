@@ -9,6 +9,7 @@ import { LongTermGoalsHeaderComponent } from './long-term-goals-header/long-term
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LongTermGoalsModalComponent } from './long-term-goals-modal/long-term-goals-modal.component'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LongTermGoalStore } from 'src/app/core/store/long-term-goal/long-term-goal.store'
 
 @Component({
   selector: 'app-long-term-goals',
@@ -24,6 +25,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LongTermGoalsComponent implements OnInit {
   readonly authStore = inject(AuthStore);
+  readonly longTermGoalStore = inject(LongTermGoalStore);
+
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
@@ -33,29 +36,54 @@ export class LongTermGoalsComponent implements OnInit {
 
   /** Loading icon. */
   loading: WritableSignal<boolean> = signal(false);
-
-  readonly exampleLongTermGoal: LongTermGoal = {
-    __id: 'ltg',
-    __userId: 'user-1',
-    oneYear: 'Secure SWE or UX Engineering Internship',
-    fiveYear: 'SWE with UX, design, or animation-oriented work',
-  };
-
-    /** For storing the dialogRef in the opened modal. */
-  dialogRef: MatDialogRef<any>;
-
   
+   longTermGoals: Signal<LongTermGoal | undefined> = computed(() => {
+     const longGoals = this.longTermGoalStore.selectFirst([["__userId", "==", this.currentUser()?.__id]],{});
+     return longGoals;                                  
+      });
 
+  /** For storing the dialogRef in the opened modal. */
+  dialogRef: MatDialogRef<any>;
+  
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
     openModal(editClicked: boolean) {
-    this.dialogRef = this.dialog.open(LongTermGoalsModalComponent, {
-      height: '90%',
-      width: '90%' ,
-      position: { bottom: '0' },
-      data: {longTermGoal: this.exampleLongTermGoal}
-    })
+      this.dialogRef = this.dialog.open(LongTermGoalsModalComponent, {
+        height: '90%',
+        width: '90%' ,
+        position: { bottom: '0' },
+        data: 
+          {
+            longTermGoal: this.longTermGoals(), 
+            onSaveAfterClick: async (goals) => {
+             if(this.longTermGoals()?.__id){
+                await this.updateNewGoal(goals);
+              } else{
+                await this.addNewGoal(goals);
+              }
+              this.dialogRef.close();
+            },
+          },
+       });  
+     }
+
+  
+  /** adding new goals. */
+  async addNewGoal(controlValue){
+    await this.longTermGoalStore.add(Object.assign({}, { 
+      __userId: this.currentUser()?.__id,
+      oneYear: controlValue.oneYear,
+      fiveYear: controlValue.fiveYear,
+    }));
+  }
+
+  /** updating existing long term goals. */
+  async updateNewGoal(controlValue){
+    await this.longTermGoalStore.update(this.longTermGoals()?.__id,Object.assign( {},{
+      oneYear: controlValue.oneYear,
+      fiveYear: controlValue.fiveYear,
+    }));
   }
 
   // --------------- OTHER -------------------------------
@@ -65,10 +93,10 @@ export class LongTermGoalsComponent implements OnInit {
     private dialog: MatDialog,
   ) { }
 
-
   // --------------- LOAD AND CLEANUP --------------------
-  
-  ngOnInit(): void {
+
+  /** fetching the long term goals from the firestore to the signal store. */
+  async ngOnInit() {
+     await this.longTermGoalStore.load([["__userId", "==", this.currentUser()?.__id]], {});
   }
-  
 }
