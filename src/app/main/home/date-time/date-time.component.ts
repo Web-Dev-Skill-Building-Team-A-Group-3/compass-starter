@@ -21,10 +21,7 @@ export class DateTimeComponent {
 
   // --------------- LOCAL UI STATE ----------------------
   
-  /**
-   * The current date and time.
-   * Gets a new value every second.
-   */
+  // Gets current date & time
   currentDateTime = toSignal(
     interval(1000).pipe(
       startWith(0),
@@ -37,16 +34,10 @@ export class DateTimeComponent {
 
   // --------------- COMPUTED DATA -----------------------
   
-  /**
-   * Today's day of the month, from 1 to 31.
-   */
+  // Today's day of the month (1-31)
   day = computed(() => this.currentDateTime().getDate());
 
-  /**
-   * The letters that go after the day number.
-   * For example: 1st, 2nd, 3rd, 4th.
-   * 11, 12 and 13 always end in "th".
-   */
+  // Assigns suffixes to numbers (th, st, nd, rd) E.g. 22nd, 13th, etc
   suffix = computed(() => {
     const day = this.day();
 
