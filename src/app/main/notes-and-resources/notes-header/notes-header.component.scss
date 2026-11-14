@@ -1,7 +1,41 @@
-:host {
-  display: block;
-  .notes-header-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+.notes-header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px 0 0 5px;
+  align-items: flex-start;
+  border: none;   
+  .title-bar {
+    .title {
+      color: #5A5A5A;
+      font-family: Oxygen;
+      font-weight: 400;
+      font-style: Regular;
+      font-size: 47.6px;
+      leading-trim: NONE;
+      line-height: 100%;
+      letter-spacing: 0%;
+    }   
+    .category {
+      color: #5A5A5A;
+      margin: 0;
+      font-size: 37.752px;
+      font-family: Oxygen;
+      font-weight: 300;
+      font-style: Light;
+      font-size: 37.75px;
+      leading-trim: NONE;
+      line-height: 100%;
+      letter-spacing: 0%;
+    }
+  }
+  .close-button {
+    width: 50px;
+    height: 50px;
+    top: -107px;
+    left: 2552.75px;
+    background: none;
+    border: none;
+    color: #4B5853;
   }
 }

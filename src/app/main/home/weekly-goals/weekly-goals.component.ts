@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
 import { WeeklyGoalsAnimations } from './weekly-goals.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
@@ -28,7 +28,7 @@ import { getStartWeekDate } from '../../../core/utils/time.utils';
     WeeklyGoalsItemComponent,
   ],
 })
-export class WeeklyGoalsComponent  implements OnInit {
+export class WeeklyGoalsComponent {
   readonly authStore = inject(AuthStore);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
@@ -47,32 +47,75 @@ export class WeeklyGoalsComponent  implements OnInit {
   /** Loading icon. */
   loading: WritableSignal<boolean> = signal(false);
 
-  //function to replace the fake hardcoded array for incompleteGoals: 
-  incompleteWeeklyGoals: Signal<WeeklyGoalData[]> = computed(()=> { 
-    const incompleteGoals = this.weeklyGoalStore.selectEntities([
-    ['__userId', '==',this.currentUser()?.__id],
-    ['completed','==',false],], {orderBy: 'order'});
+  /** Placeholder data that is being used until we can use real data. */
+  quarterlyGoals: Signal<QuarterlyGoalsData[]> = signal([
+    {
+      __id: 'qg1',
+      __userId: 'test-user',
+      __hashtagId: 'ht1',
+      text: 'Finish cover letters',
+      completed: false,
+      order: 1,
+      _createdAt: Timestamp.now(),
+      _updatedAt: Timestamp.now(),
+      _deleted: false,
+      hashtag: {
+        __id: 'ht1',
+        name: 'apply-internships',
+        color: '#2DBDB1',
+        _createdAt: Timestamp.now(),
+        _updatedAt: Timestamp.now(),
+        _deleted: false,
+      },
+      weeklyGoalsTotal: 1,
+      weeklyGoalsComplete: 0,
+    },
+    {
+      __id: 'qg2',
+      __userId: 'test-user',
+      __hashtagId: 'ht2',
+      text: 'Apply to internships',
+      completed: false,
+      order: 2,
+      _createdAt: Timestamp.now(),
+      _updatedAt: Timestamp.now(),
+      _deleted: false,
+      hashtag: {
+        __id: 'ht2',
+        name: 'apply-internships',
+        color: '#2DBDB1',
+        _createdAt: Timestamp.now(),
+        _updatedAt: Timestamp.now(),
+        _deleted: false,
+      },
+      weeklyGoalsTotal: 1,
+      weeklyGoalsComplete: 0,
+    },
+    {
+      __id: 'qg3',
+      __userId: 'test-user',
+      __hashtagId: 'ht3',
+      text: 'Review data structures',
+      completed: false,
+      order: 3,
+      _createdAt: Timestamp.now(),
+      _updatedAt: Timestamp.now(),
+      _deleted: false,
+      hashtag: {
+        __id: 'ht3',
+        name: 'class-algorithms',
+        color: '#FFB987',
+        _createdAt: Timestamp.now(),
+        _updatedAt: Timestamp.now(),
+        _deleted: false,
+      },
+      weeklyGoalsTotal: 1,
+      weeklyGoalsComplete: 1,
+    },
+  ]);
 
-    return incompleteGoals.map((goal)=> {
-      const quarterlyGoals = this.quarterlyGoalStore.selectEntity(goal.__quarterlyGoalId);
-      const hashtag = this.hashtagStore.selectEntity(quarterlyGoals?. __hashtagId);
-      return(Object.assign({}, goal, {hashtag: hashtag, 
-        quarterGoal: quarterlyGoals,}));
-  });
-});
-
-  //function to replace the fake hardcoded text for completed goals: 
-  completeWeeklyGoals: Signal<WeeklyGoalData[]> = computed(()=> {
-    const completedGoals = this.weeklyGoalStore.selectEntities(
-      [['__userId','==',this.currentUser()?.__id],
-      ['completed','==', true],], {orderBy: 'order'});
-
-    return completedGoals.map((goal)=> {
-      const quarterlyGoals = this.quarterlyGoalStore.selectEntity(goal.__quarterlyGoalId);
-      const hashtag = this.hashtagStore.selectEntity(quarterlyGoals?.__hashtagId);
-      return(Object.assign({} , goal, {hashtag: hashtag, quarterGoal: quarterlyGoals,}));
-    });
-});
+  /** Reference to the open the WeeklyGoal Modal, allowing us to read/close the modal. */
+  dialogRef: MatDialogRef<any>;
   
   dialogRef: MatDialogRef<any>
   // --------------- COMPUTED DATA -----------------------
@@ -177,30 +220,4 @@ export class WeeklyGoalsComponent  implements OnInit {
   ),
 ];
   
-    async ngOnInit() {
-    await this.weeklyGoalStore.load(
-      [
-        ['__userId', '==', this.currentUser()?.__id],
-        ['completed', '==', false],
-      ],
-      { orderBy: 'order' },
-      this.loadGoalRelations,
-    );
-
-      const weekStart = getStartWeekDate();
-      const weekEnd = new Date(weekStart);
-      weekEnd.setDate(weekStart.getDate() + 6);
-      weekEnd.setHours(23, 59, 59, 999);
-
-      await this.weeklyGoalStore.load(
-        [
-          ['__userId', '==', this.currentUser()?.__id],
-          ['completed', '==', true],
-          ['completionDate', '>=', Timestamp.fromDate(weekStart)],
-          ['completionDate', '<=', Timestamp.fromDate(weekEnd)],
-        ],
-        { orderBy: 'order' },
-        this.loadGoalRelations,
-      );
-       }
 }

@@ -1,3 +1,18 @@
 <div class="notes-header-container">
-  notes-header works!
+  <div class="title-bar">
+    <h1 class="title">Notes and resources</h1>
+    <div class="category">
+      @if (isLongTermGoal()) {
+         For long-term goals
+      } @else {
+        @if (hashtag(); as tag) {
+          For <span class="hashtag" [style.color]="tag.color">#{{ tag.name }}</span>
+        }
+      }
+    </div>
+  </div>
+    <button type="button" class="close-button" (click)="exit()">
+      <img src="images/close-x.svg" alt="Close"/>
+    </button>
+
 </div>
