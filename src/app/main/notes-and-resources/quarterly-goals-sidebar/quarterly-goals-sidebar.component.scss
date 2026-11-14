@@ -1,7 +1,47 @@
-:host {
-  display: block;
-  .quarterly-goals-sidebar-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+.quarterly-goals-sidebar-container {  
+  .sidebar-container {
+    background-color: #E1FBF9;
+    width: 335px;
+    height: auto;  
+    h6 {
+      font-family: Oxygen;
+      font-weight: 700;
+      font-size: 19px;
+      color: #4B5853;
+      line-height: 1;
+      margin-left: 10px;
+      opacity: 1;
+    } 
+    .first {
+      width: 300px;
+      margin-left: 15px;
+      border-top-color: #00000026;
+      margin-bottom: 8px;
+    }
+    .sections {
+      font-family: Oxygen;
+      font-weight: 400;
+      font-size: 16px;
+      color: #5A5A5A;
+      line-height: 2;
+      margin-left: 10px;    
+    }
+  }  
+  .add-quarterly-goal {
+      margin: 5px 10px 8px;
+      padding: 0;
+      cursor: pointer;
+      font-family: Oxygen, sans-serif;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1;
+      color: #5a5a5a;
+      border: none;
+      background: none;
+      &:disabled {
+        cursor: default;
+        opacity: 0.5;
+      }
   }
 }
+

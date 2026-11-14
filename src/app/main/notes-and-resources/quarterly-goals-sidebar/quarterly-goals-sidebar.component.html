@@ -1,3 +1,42 @@
 <div class="quarterly-goals-sidebar-container">
-  quarterly-goals-sidebar works!
+  <div class="sidebar-container">
+    <h6>{{ quarterlyGoal()?.text }}</h6>
+    <mat-divider class="first"></mat-divider>
+    <div class="sections">
+      @for (goal of quarterlyGoals(); track goal.__id) {
+        <app-quarterly-sidebar-item
+          [goal]="goal"
+        ></app-quarterly-sidebar-item>
+      }
+    </div>
+    @if (addingGoal()) {
+      <div class="new-goal-row">
+        <span
+          class="checkbox-spacer"
+          aria-hidden="true"
+        ></span>
+        <input
+          #newGoalInput
+          matInput
+          class="new-goal-input"
+          type="text"
+          placeholder="Enter a weekly goal"
+          aria-label="New quarterly goal"
+          [value]="newGoalText()"
+          (input)="onNewGoalInput($event)"
+          (blur)="saveNewGoal()"
+          (keydown.enter)="newGoalInput.blur()"
+          (keydown.escape)="cancelNewGoal()"
+        />
+      </div>
+    }
+    <button
+      class="add-quarterly-goal"
+      type="button"
+      [disabled]="loading()"
+      (click)="addGoal()"
+    >
+      + Add a weekly goal
+    </button>
+  </div>
 </div>

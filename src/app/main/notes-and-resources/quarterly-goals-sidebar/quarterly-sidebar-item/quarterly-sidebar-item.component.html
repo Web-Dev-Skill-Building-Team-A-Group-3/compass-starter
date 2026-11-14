@@ -1,3 +1,15 @@
 <div class="quarterly-sidebar-item-container">
-  quarterly-sidebar-item works!
+  <mat-checkbox
+    #goalCheckbox
+    [checked]="goal().completed"
+    (change)="completedChange.emit($event.checked)"
+  >
+    <span
+      class="goal-text"
+      [class.completed-goal]="goalCheckbox.checked"
+    >
+      {{ goal().text }}
+    </span>
+  </mat-checkbox>
+  <mat-divider></mat-divider>
 </div>
