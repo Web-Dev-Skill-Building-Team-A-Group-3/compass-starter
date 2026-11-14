@@ -49,6 +49,7 @@ export class WeeklyGoalsModalComponent {
 	return this.weeklyGoalsForm.get('allGoals') as FormArray;
   }
   // --------------- EVENT HANDLING ----------------------
+  // TODO (2/4): this file and weekly-goals.component.ts should match main's version; the merge kept your branch's old copy and emptied addGoalToForm
   addGoalToForm(goal: any | null) {
   	
   }

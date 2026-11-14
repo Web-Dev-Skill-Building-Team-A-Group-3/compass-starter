@@ -54,6 +54,7 @@ export class NotesHeaderComponent implements OnInit {
   );
 
   /** Checks if the page is LongTermGoals by comparing the long term goal id to goalId. */
+  // TODO (3/4): fix lint style in this file: missing semicolon on this line, spacing around braces and commas in exit() and ngOnInit, unused imports
   isLongTermGoal: Signal<boolean> = computed(() =>  this.longTermGoal()?.__id === this.goalId())
 
   /** Hashtag for the quarterly goal variant. */
