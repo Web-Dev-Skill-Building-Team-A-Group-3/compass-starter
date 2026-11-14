@@ -1,7 +1,11 @@
 :host {
   display: block;
-  .notes-and-resources-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+  width: 100%;
+  height: 100%;
+  background: #F2FFFE;
+  .notes-and-resources-container{
+    display:flex;
+    flex-direction: column;
   }
+  
 }
