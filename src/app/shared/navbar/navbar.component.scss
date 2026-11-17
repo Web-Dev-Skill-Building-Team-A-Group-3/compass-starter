@@ -26,6 +26,16 @@
       border-radius: 50%;
       cursor: pointer;
     }
+    
+    .logout-container{
+      display: flex;
+      align-items: center;
+      gap:10px;
+      
+      .logout-icon{
+        cursor: pointer;
+      }
+    }
   }
 }
 

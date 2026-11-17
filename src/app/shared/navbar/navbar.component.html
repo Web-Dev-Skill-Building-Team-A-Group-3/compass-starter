@@ -1,8 +1,11 @@
 <div class="navbar-container">
-  <!--<img class="logo" src="images/logo.svg">-->
+  <img class="logo" src="images/logo.svg">
   @if (currentUser()) {
     <div class="user-setting-section">
-      <img class="profile-pic" [src]= 'currentUser().photoURL' [matMenuTriggerFor]="menu" #menuTrigger/>
+      <div class="logout-container"[matMenuTriggerFor]="menu">
+        Logout
+        <mat-icon [matMenuTriggerFor]="menu" class="logout-icon">logout</mat-icon>
+      </div>
       <mat-menu #menu="matMenu">
         <div class="logout" (click)="logout()">
           <span>

@@ -1,7 +1,22 @@
 :host {
   display: block;
+  
   .greeting-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+    display: flex;
+    border-radius: 10px;
+    height: 100%;
+    padding: 20px;
+    background: #E1FBF9;
+    
+    .greeting {
+      color: #2DBDB1;
+      font-size: 40px;
+      font-weight: 400;
+      
+    .user-name {
+      font-weight: bold;
+      }
+    }
   }
 }
+

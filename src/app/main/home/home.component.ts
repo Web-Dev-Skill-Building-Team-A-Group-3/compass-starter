@@ -5,12 +5,10 @@ import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
 import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
 import { WeeklyGoalsComponent } from './weekly-goals/weekly-goals.component';
-import { MatIcon } from '@angular/material/icon';
-import { MatFormField } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
 import { QuarterlyGoalsComponent } from './quarterly-goals/quarterly-goals.component';
 import { LongTermGoalsComponent } from './long-term-goals/long-term-goals.component';
 import { DateTimeComponent } from './date-time/date-time.component';
+import { GreetingComponent } from './greeting/greeting.component';
 
 @Component({
   selector: 'app-home',
@@ -22,12 +20,10 @@ import { DateTimeComponent } from './date-time/date-time.component';
   imports: [
     NavbarComponent,
     WeeklyGoalsComponent,
-    MatIcon,
-    MatFormField,
-    MatSelect,
     QuarterlyGoalsComponent,
     LongTermGoalsComponent,
     DateTimeComponent,
+    GreetingComponent,
   ]
 })
 export class HomeComponent implements OnInit {

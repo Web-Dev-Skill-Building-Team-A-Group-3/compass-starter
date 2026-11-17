@@ -1,3 +1,36 @@
 <div class="long-term-goals-modal-container">
-  long-term-goals-modal works!
+  <header class="modal-header">
+      <h2 class="title">Long-term Goals</h2>
+      <p class="subtitle">Plan your future</p>
+
+    <button
+      class="close-button"
+      (click)="onClose()"
+      type="button"
+      aria-label="Close long-term goals modal"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </header>
+
+  <section class="goal-section">
+    <h3>1 year</h3>
+    <div class="goal-value">
+      <textarea [(ngModel)]="oneYearGoal"></textarea>
+     
+    </div>
+  </section>
+
+  <section class="goal-section">
+    <h3>5 year</h3>
+    <div class="goal-value">
+       <textarea [(ngModel)]="fiveYearGoal"> </textarea>
+    </div>
+  </section>
+
+  <div class="modal-actions">
+    <button class="save-button" (click)="onSave()" type="button" [disabled]="isSaveDisabled()">
+      Save
+    </button>
+  </div>
 </div>

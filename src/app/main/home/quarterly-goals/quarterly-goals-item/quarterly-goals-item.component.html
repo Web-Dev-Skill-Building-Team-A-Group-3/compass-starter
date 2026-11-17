@@ -1,3 +1,20 @@
-<div class="quarterly-goals-item-container">
-  quarterly-goals-item works!
-</div>
+@if (goal()) {
+  <div class="quarterly-goals-item-container">
+    <mat-checkbox 
+      class="check-box" 
+      [checked]="goal().completed"
+      [disableRipple]="true"
+      (change)="checkGoal(goal())"></mat-checkbox> 
+    <div class="goal-details">
+      <div class="goal-title" [class.complete]="goal().completed"> 
+        {{ goal().text }}
+      </div>
+      <div class="goal-hashtag" [style.color]="goal().hashtag.color">
+        #{{ goal().hashtag.name }}
+      </div>
+    </div>
+    <div class="goal-numbers">
+      {{goal().weeklyGoalsComplete}} / {{goal().weeklyGoalsTotal}}
+    </div>
+  </div>
+}
