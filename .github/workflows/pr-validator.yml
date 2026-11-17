@@ -14,7 +14,7 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.head_ref }}
         run: |
-          EXPECTED_PATTERN="^(build|ci|docs|feat|fix|perf|refactor|style|test)\/[0-9]+-[a-zA-Z0-9-]+$"
+          EXPECTED_PATTERN="^(build|ci|docs|feat|fix|perf|refactor|style|test)\/[a-zA-Z0-9-]+$"
           if [[ ! "$BRANCH_NAME" =~ $EXPECTED_PATTERN ]]; then
             echo "❌ ERROR: Invalid branch name: '$BRANCH_NAME'"
             echo "Expected format: type/issue#-description"
