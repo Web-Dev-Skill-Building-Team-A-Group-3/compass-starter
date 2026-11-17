@@ -24,16 +24,16 @@ import { GreetingComponent } from './greeting/greeting.component';
     LongTermGoalsComponent,
     DateTimeComponent,
     GreetingComponent,
-  ]
+  ],
 })
 export class HomeComponent implements OnInit {
   authStore = inject(AuthStore);
-  
+
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The currently signed in user. */
   currentUser: Signal<User> = this.authStore.user;
-  
+
   // --------------- LOCAL UI STATE ----------------------
 
   // --------------- COMPUTED DATA -----------------------
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
   }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit() {
   }
 }

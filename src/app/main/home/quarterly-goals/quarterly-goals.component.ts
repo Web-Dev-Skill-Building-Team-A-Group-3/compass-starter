@@ -7,7 +7,7 @@ import { QuarterlyGoalsHeaderComponent } from './quarterly-goals-header/quarterl
 import { Timestamp } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { QuarterlyGoalsItemComponent } from './quarterly-goals-item/quarterly-goals-item.component';
-import { QuarterlyGoalsData} from '../home.model';
+import { QuarterlyGoalsData } from '../home.model';
 
 @Component({
   selector: 'app-quarterly-goals',
@@ -18,7 +18,7 @@ import { QuarterlyGoalsData} from '../home.model';
   standalone: true,
   imports: [
     QuarterlyGoalsHeaderComponent,
-    QuarterlyGoalsItemComponent
+    QuarterlyGoalsItemComponent,
   ],
 })
 export class QuarterlyGoalsComponent implements OnInit {
@@ -59,7 +59,7 @@ export class QuarterlyGoalsComponent implements OnInit {
 
   // --------------- EVENT HANDLING ----------------------
   checkGoal(goal: QuarterlyGoalsData) {
-    }
+  }
 
   // --------------- OTHER -------------------------------
 
@@ -70,7 +70,7 @@ export class QuarterlyGoalsComponent implements OnInit {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit(): void {
   }
 }

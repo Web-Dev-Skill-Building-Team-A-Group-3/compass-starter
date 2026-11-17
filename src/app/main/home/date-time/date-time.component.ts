@@ -16,11 +16,11 @@ import { DatePipe } from '@angular/common';
     DatePipe,
   ],
 })
-export class DateTimeComponent {
+export class DateTimeComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
 
   // --------------- LOCAL UI STATE ----------------------
-  
+
   // Gets current date & time
   currentDateTime = toSignal(
     interval(1000).pipe(
@@ -33,7 +33,7 @@ export class DateTimeComponent {
   );
 
   // --------------- COMPUTED DATA -----------------------
-  
+
   // Today's day of the month (1-31)
   day = computed(() => this.currentDateTime().getDate());
 
@@ -61,8 +61,7 @@ export class DateTimeComponent {
         return 'th';
     }
   });
-  
-  
+
 
   // --------------- EVENT HANDLING ----------------------
 
@@ -74,7 +73,7 @@ export class DateTimeComponent {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit(): void {
   }
 }
