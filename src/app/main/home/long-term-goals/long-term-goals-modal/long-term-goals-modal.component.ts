@@ -3,7 +3,7 @@ import { LongTermGoalsModalAnimations } from './long-term-goals-modal.animations
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
-import { MatDialogRef,  MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -13,20 +13,20 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: LongTermGoalsModalAnimations,
   standalone: true,
-  imports: [FormsModule
+  imports: [FormsModule,
   ],
 })
 export class LongTermGoalsModalComponent implements OnInit {
   readonly authStore = inject(AuthStore);
   private readonly dialogRef = inject(MatDialogRef<LongTermGoalsModalComponent>);
   private readonly data = inject( MAT_DIALOG_DATA );
-  
+
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
   currentUser: Signal<User> = this.authStore.user;
-  
-  /** Consts for the goals*/
+
+  /** Consts for the goals */
   oneYearGoal = model(this.data.longTermGoal.oneYear);
   fiveYearGoal = model(this.data.longTermGoal.fiveYear);
   // --------------- LOCAL UI STATE ----------------------
@@ -37,18 +37,18 @@ export class LongTermGoalsModalComponent implements OnInit {
   // --------------- COMPUTED DATA -----------------------
   /** Computed for validating the goals */
   isSaveDisabled = computed(() => {
-      const oneYear = this.oneYearGoal().trim();
-      const fiveYear = this.fiveYearGoal().trim();
-      return oneYear === '' || fiveYear === '';
-    });
+    const oneYear = this.oneYearGoal().trim();
+    const fiveYear = this.fiveYearGoal().trim();
+    return oneYear === '' || fiveYear === '';
+  });
   // --------------- EVENT HANDLING ----------------------
   onSave(): void {
-      if (this.isSaveDisabled()) return;
-      this.data.onSaveAfterClick({
-        oneYear: this.oneYearGoal().trim(),
-        fiveYear: this.fiveYearGoal().trim()
-      });
-    }
+    if (this.isSaveDisabled()) return;
+    this.data.onSaveAfterClick({
+      oneYear: this.oneYearGoal().trim(),
+      fiveYear: this.fiveYearGoal().trim(),
+    });
+  }
 
   onClose(): void {
     this.dialogRef.close();
@@ -61,7 +61,7 @@ export class LongTermGoalsModalComponent implements OnInit {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit(): void {
   }
 }

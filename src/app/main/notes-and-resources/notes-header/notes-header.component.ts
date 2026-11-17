@@ -10,7 +10,7 @@ import { QuarterlyGoal } from 'src/app/core/store/quarterly-goal/quarterly-goal.
 import { LongTermGoal } from 'src/app/core/store/long-term-goal/long-term-goal.model';
 import { Hashtag } from 'src/app/core/store/hashtag/hashtag.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-notes-header',
@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule,
-    
+
   ],
 })
 export class NotesHeaderComponent implements OnInit {
@@ -41,7 +41,7 @@ export class NotesHeaderComponent implements OnInit {
   // --------------- LOCAL UI STATE ----------------------
   /** Loading icon. **/
   loading: WritableSignal<boolean> = signal(false);
-  
+
   // --------------- COMPUTED DATA -----------------------
   /** Selects the longTermGoal data if it the page is longTermGoals. */
   longTermGoal: Signal<LongTermGoal> = computed(() =>
@@ -55,7 +55,7 @@ export class NotesHeaderComponent implements OnInit {
 
   /** Checks if the page is LongTermGoals by comparing the long term goal id to goalId. */
   // TODO (3/4): fix lint style in this file: missing semicolon on this line, spacing around braces and commas in exit() and ngOnInit, unused imports
-  isLongTermGoal: Signal<boolean> = computed(() =>  this.longTermGoal()?.__id === this.goalId())
+  isLongTermGoal: Signal<boolean> = computed(() => this.longTermGoal()?.__id === this.goalId());
 
   /** Hashtag for the quarterly goal variant. */
   hashtag: Signal<Hashtag> = computed(() => {
@@ -64,7 +64,7 @@ export class NotesHeaderComponent implements OnInit {
   });
   // --------------- EVENT HANDLING ----------------------
   /** Closes the note page and return back to dashboard */
-  exit(): void{
+  exit(): void {
     this.router.navigate(['/home']);
   }
   // --------------- OTHER -------------------------------
@@ -86,10 +86,10 @@ export class NotesHeaderComponent implements OnInit {
       this.longTermGoalStore.load(
         [['__id', '==', goalId], ['__userId', '==', userId]], {}),
       this.quarterlyGoalStore.load(
-        [['__id', '==', goalId], ['__userId', '==', userId]],{},
+        [['__id', '==', goalId], ['__userId', '==', userId]], {},
         // nested load with a single '__id' equality so app.store can batch it
         (qg) => [LoadHashtag.create(this.hashtagStore, [['__id', '==', qg.__hashtagId]], {})],
-        {loading: this.loading}
+        { loading: this.loading },
       ),
     ]);
   }

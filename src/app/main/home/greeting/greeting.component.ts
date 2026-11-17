@@ -30,27 +30,27 @@ export class GreetingComponent implements OnInit {
   loading: WritableSignal<boolean> = signal(false);
 
   // --------------- COMPUTED DATA -----------------------
-  
-    time: Signal<Date> = toSignal(
-      interval(1000).pipe(
-        map(() => new Date())
-      ),
-      { initialValue: new Date() }
-    );
-  
-    greeting: Signal<string> = computed(() => {
-      const currentHour = this.time().getHours();
-      let greetingMessage: string;
-      if (currentHour >= 5 && currentHour < 12) {
-        greetingMessage = 'Good morning';
-      } else if (currentHour < 18) {
-        greetingMessage = 'Good afternoon';
-      } else {
-        greetingMessage = 'Good evening';
-      }
-      return greetingMessage;
-    });
-  
+
+  time: Signal<Date> = toSignal(
+    interval(1000).pipe(
+      map(() => new Date()),
+    ),
+    { initialValue: new Date() },
+  );
+
+  greeting: Signal<string> = computed(() => {
+    const currentHour = this.time().getHours();
+    let greetingMessage: string;
+    if (currentHour >= 5 && currentHour < 12) {
+      greetingMessage = 'Good morning';
+    } else if (currentHour < 18) {
+      greetingMessage = 'Good afternoon';
+    } else {
+      greetingMessage = 'Good evening';
+    }
+    return greetingMessage;
+  });
+
   // --------------- EVENT HANDLING ----------------------
 
   // --------------- OTHER -------------------------------
@@ -61,7 +61,7 @@ export class GreetingComponent implements OnInit {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit(): void {
   }
 }

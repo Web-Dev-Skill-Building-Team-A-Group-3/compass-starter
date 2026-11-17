@@ -24,7 +24,7 @@ export class QuarterlyGoalsHeaderComponent implements OnInit {
   editQuart = output<boolean>();
   // --------------- LOCAL UI STATE ----------------------
 
-  
+
   // --------------- COMPUTED DATA -----------------------
   loading: WritableSignal<boolean> = signal(false);
   // --------------- EVENT HANDLING ----------------------
@@ -33,7 +33,7 @@ export class QuarterlyGoalsHeaderComponent implements OnInit {
   */
   onEdit(isEdState: boolean): void {
     this.snackBar.open('Opening Quarterly Goals Modal', 'Close', {
-      duration: 5000
+      duration: 5000,
     });
     this.editQuart.emit(isEdState);
   }
@@ -45,7 +45,7 @@ export class QuarterlyGoalsHeaderComponent implements OnInit {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit(): void {
   }
 }

@@ -24,11 +24,11 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: WeeklyGoalsModalAnimations,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ],
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class WeeklyGoalsModalComponent {
   readonly authStore = inject(AuthStore);
-  
+
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
@@ -41,21 +41,21 @@ export class WeeklyGoalsModalComponent {
 
   /** Holds all of the rows for weeklygoals that are being shown in the modal. */
   weeklyGoalsForm = this.fb.group({
-  	allGoals: this.fb.array([])
-    });
+  	allGoals: this.fb.array([]),
+  });
   // --------------- COMPUTED DATA -----------------------
   /** Get all of the goals in WeeklyGoalsForm. */
   get allGoals() {
-	return this.weeklyGoalsForm.get('allGoals') as FormArray;
+    return this.weeklyGoalsForm.get('allGoals') as FormArray;
   }
   // --------------- EVENT HANDLING ----------------------
   // TODO (2/4): this file and weekly-goals.component.ts should match main's version; the merge kept your branch's old copy and emptied addGoalToForm
   addGoalToForm(goal: any | null) {
-  	
+
   }
   // --------------- OTHER -------------------------------
 
-  
+
   constructor(
     private injector: Injector,
     @Inject(MAT_DIALOG_DATA)
@@ -85,12 +85,11 @@ export class WeeklyGoalsModalComponent {
           _new: false,
         });
       });
-      if (this.data.emptyRow){
-      this.addGoalToForm(null);
+      if (this.data.emptyRow) {
+        this.addGoalToForm(null);
       }
     }
   }
-  
+
   // --------------- LOAD AND CLEANUP --------------------
-  
 }
