@@ -5,7 +5,7 @@ import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
 import { LongTermGoal } from '../../../../core/store/long-term-goal/long-term-goal.model';
 import { LongTermGoalStore } from '../../../../core/store/long-term-goal/long-term-goal.store';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-long-term-goals-item',
@@ -20,7 +20,7 @@ import {MatDividerModule} from '@angular/material/divider';
 })
 export class LongTermGoalsItemComponent implements OnInit {
   readonly authStore = inject(AuthStore);
-  
+
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
@@ -58,7 +58,7 @@ export class LongTermGoalsItemComponent implements OnInit {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit(): void {
   }
 }

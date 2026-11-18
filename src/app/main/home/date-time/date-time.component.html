@@ -1,3 +1,24 @@
-<div class="date-time-container">
-  date-time works!
+<div class="date-time-container" 
+     [attr.aria-label]="currentDateTime() | date: 'h:mm a, EEEE, MMMM d, y'">
+  <div class="time">
+    <span class="hours-minutes">
+      {{ currentDateTime() | date: 'h:mm' }}
+    </span>
+
+    <div class="period-second-column">
+      <span class="period">
+        {{ currentDateTime() | date: 'a' }}
+      </span>
+
+      <span class="seconds">
+        {{ currentDateTime() | date: 'ss' }}
+      </span>
+    </div>
+  </div>
+
+  <div class="date">
+    {{ currentDateTime() | date: 'MMMM' }}
+    {{ currentDateTime() | date: 'd' }}{{ suffix() }},
+    {{ currentDateTime() | date: 'yyyy' }}
+  </div>
 </div>

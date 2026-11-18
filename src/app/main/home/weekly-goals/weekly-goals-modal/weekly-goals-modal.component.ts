@@ -46,15 +46,15 @@ export class WeeklyGoalsModalComponent implements OnInit {
   async addGoalToForm(goal: Partial<WeeklyGoalInForm> | null) {
     this.allGoals.push(
       this.fb.group({
-         text: [goal?.text??''],
-         __quarterlyGoalId:[goal?.__quarterlyGoalId ?? null],
-         originalText: [goal?.originalText ?? ''],
-         originalOrder:[goal?.originalOrder??''],
-         originalQuarterlyGoalId:[goal?.originalQuarterlyGoalId??''],
-         __weeklyGoalId:[goal?.__weeklyGoalId ?? null],
-         _deleted:[goal?._deleted ?? false],
-         _new: [goal?._new ?? true],
-      })
+        text: [goal?.text??''],
+        __quarterlyGoalId: [goal?.__quarterlyGoalId ?? null],
+        originalText: [goal?.originalText ?? ''],
+        originalOrder: [goal?.originalOrder??''],
+        originalQuarterlyGoalId: [goal?.originalQuarterlyGoalId??''],
+        __weeklyGoalId: [goal?.__weeklyGoalId ?? null],
+        _deleted: [goal?._deleted ?? false],
+        _new: [goal?._new ?? true],
+      }),
     );
   }
   // --------------- OTHER -------------------------------
@@ -88,14 +88,14 @@ export class WeeklyGoalsModalComponent implements OnInit {
           _new: false,
         });
       });
-      if (this.data.emptyRow){
-      this.addGoalToForm(null);
+      if (this.data.emptyRow) {
+        this.addGoalToForm(null);
       }
     }
   }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit(): void {
   }
 }
