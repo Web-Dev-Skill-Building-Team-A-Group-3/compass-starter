@@ -19,14 +19,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   standalone: true,
   imports: [
     MatCheckbox,
-    MatProgressSpinner
+    MatProgressSpinner,
   ],
 })
-  
+
 export class QuarterlyGoalsItemComponent implements OnInit {
   readonly authStore = inject(AuthStore);
 
-  
+
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
@@ -44,7 +44,7 @@ export class QuarterlyGoalsItemComponent implements OnInit {
   // --------------- EVENT HANDLING ----------------------
   checkGoal(goal: QuarterlyGoalsData): void {
     goal.completed = !goal.completed;
-  
+
     this.snackBar.open(
       goal.completed ? 'Marked goal as complete' : 'Marked goal as incomplete',
       '',
@@ -66,7 +66,7 @@ export class QuarterlyGoalsItemComponent implements OnInit {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit(): void {
   }
 }

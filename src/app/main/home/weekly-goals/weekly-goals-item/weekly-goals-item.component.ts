@@ -41,16 +41,16 @@ export class WeeklyGoalsItemComponent implements OnInit {
   onCompletedChange(completed: boolean): void {
     this.weeklyGoal().completed = completed;
 
-    const message = completed
-      ? 'Weekly goal marked complete'
-      : 'Weekly goal marked incomplete';
+    const message = completed ?
+      'Weekly goal marked complete' :
+      'Weekly goal marked incomplete';
 
     this.snackBar.open(message, 'Close', {
       duration: 5000,
-  });
+    });
 
     this.completedChange.emit(completed);
-}
+  }
 
   // --------------- OTHER -------------------------------
 
@@ -60,7 +60,7 @@ export class WeeklyGoalsItemComponent implements OnInit {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit(): void {
   }
 }

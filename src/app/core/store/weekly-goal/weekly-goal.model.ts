@@ -15,5 +15,3 @@ export interface WeeklyGoal {
   _deleted?: boolean;
 }
 
-                                    
-                                                   

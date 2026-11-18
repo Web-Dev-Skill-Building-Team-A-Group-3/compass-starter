@@ -12,13 +12,13 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./navbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatMenuTrigger, 
-            MatMenu, 
-            MatToolbar, 
-            MatButtonModule, 
-            MatIconModule],
+  imports: [MatMenuTrigger,
+    MatMenu,
+    MatToolbar,
+    MatButtonModule,
+    MatIconModule],
 })
-  
+
 export class NavbarComponent implements OnInit {
   readonly authStore = inject(AuthStore);
 
