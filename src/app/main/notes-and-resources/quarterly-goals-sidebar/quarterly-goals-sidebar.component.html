@@ -3,9 +3,10 @@
     <h6>{{ quarterlyGoal()?.text }}</h6>
     <mat-divider class="first"></mat-divider>
     <div class="sections">
-      @for (goal of quarterlyGoals(); track goal.__id) {
+      @for (goal of weeklyGoals(); track goal.__id) {
         <app-quarterly-sidebar-item
           [goal]="goal"
+          (completedChange)="toggleCompleteChange(goal, $event)"
         ></app-quarterly-sidebar-item>
       }
     </div>
@@ -17,11 +18,10 @@
         ></span>
         <input
           #newGoalInput
-          matInput
           class="new-goal-input"
           type="text"
           placeholder="Enter a weekly goal"
-          aria-label="New quarterly goal"
+          aria-label="New weekly goal"
           [value]="newGoalText()"
           (input)="onNewGoalInput($event)"
           (blur)="saveNewGoal()"

@@ -1,8 +1,9 @@
-.quarterly-goals-sidebar-container {  
+.quarterly-goals-sidebar-container {
   .sidebar-container {
     background-color: #E1FBF9;
     width: 335px;
-    height: auto;  
+    height: auto;
+    
     h6 {
       font-family: Oxygen;
       font-weight: 700;
@@ -11,23 +12,65 @@
       line-height: 1;
       margin-left: 10px;
       opacity: 1;
-    } 
+    }
+    
     .first {
       width: 300px;
       margin-left: 15px;
       border-top-color: #00000026;
       margin-bottom: 8px;
     }
+    
     .sections {
       font-family: Oxygen;
       font-weight: 400;
       font-size: 16px;
       color: #5A5A5A;
       line-height: 2;
-      margin-left: 10px;    
+      margin-left: 10px;
     }
-  }  
-  .add-quarterly-goal {
+    
+    .new-goal-row {
+      display: flex;
+      align-items: center;
+      width: 335px;
+      height: 48px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .checkbox-spacer {
+      flex: 0 0 48px;
+    }
+
+    .new-goal-input {
+      flex: 1;
+      min-width: 0;
+      height: 36px;
+      padding: 0 4px;
+      font-family: Oxygen, sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #5a5a5a;
+      border: none;
+      border-bottom: 1px solid #00000026;
+      outline: none;
+      background-color: transparent;
+      box-sizing: border-box;
+
+      &::placeholder {
+        font-family: Oxygen, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        color: #777777;
+      }
+
+      &:focus {
+        border-bottom-color: #24bdb2;
+      }
+    }
+    
+    .add-quarterly-goal {
       margin: 5px 10px 8px;
       padding: 0;
       cursor: pointer;
@@ -38,10 +81,12 @@
       color: #5a5a5a;
       border: none;
       background: none;
+
       &:disabled {
         cursor: default;
         opacity: 0.5;
       }
+    }
   }
 }
 

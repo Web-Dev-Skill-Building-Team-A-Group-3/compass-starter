@@ -1,19 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy, input, inject, WritableSignal, Signal, signal, computed, effect, Inject, Injector } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, input, inject, WritableSignal, Signal, signal, computed, Inject, Injector, ElementRef, viewChild, afterNextRender } from '@angular/core';
 import { QuarterlyGoalsSidebarAnimations } from './quarterly-goals-sidebar.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
 import { MatDivider } from '@angular/material/divider';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { QuarterlyGoalStore } from '../../../core/store/quarterly-goal/quarterly-goal.store';
 import { QuarterlyGoal } from '../../../core/store/quarterly-goal/quarterly-goal.model';
 import { WeeklyGoalStore } from '../../../core/store/weekly-goal/weekly-goal.store';
 import { WeeklyGoal } from '../../../core/store/weekly-goal/weekly-goal.model';
-import { HashtagStore } from '../../../core/store/hashtag/hashtag.store';
-import { Hashtag } from '../../../core/store/hashtag/hashtag.model';
-import { MatSnackBar, MatSnackBarModule, } from '@angular/material/snack-bar';
-import { QueryParams, QueryOptions } from '../../../core/store/app.model';
 import { QuarterlySidebarItemComponent } from './quarterly-sidebar-item/quarterly-sidebar-item.component';
 
 @Component({
@@ -25,22 +19,20 @@ import { QuarterlySidebarItemComponent } from './quarterly-sidebar-item/quarterl
   standalone: true,
   imports: [
     MatDivider,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSnackBarModule,
     QuarterlySidebarItemComponent,
   ],
 })
 
 export class QuarterlyGoalsSidebarComponent implements OnInit {
   readonly authStore = inject(AuthStore);
+  readonly weeklyGoalStore = inject(WeeklyGoalStore);
   readonly quarterlyGoalStore = inject(QuarterlyGoalStore);
-  private readonly snackBar = inject(MatSnackBar);
   
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
   currentUser: Signal<User> = this.authStore.user;
+  
   /** The quarterly goal's id from the URL, passed down by the parent. */
   readonly goalId: Signal<string> = input.required<string>();
 
@@ -48,10 +40,15 @@ export class QuarterlyGoalsSidebarComponent implements OnInit {
 
   /** Loading icon. */
   loading: WritableSignal<boolean> = signal(false);
+  
   /** Whether the "add a weekly goal" input is currently open. */
   readonly addingGoal: WritableSignal<boolean> = signal(false);
+  
   /** The input text for a new goal. */
   readonly newGoalText: WritableSignal<string> = signal('');
+
+  /** The new goal input element which is focused when it is first open. */
+  readonly newGoalInput = viewChild<ElementRef<HTMLInputElement>>('newGoalInput');
 
   // --------------- COMPUTED DATA -----------------------
 
@@ -59,31 +56,21 @@ export class QuarterlyGoalsSidebarComponent implements OnInit {
   readonly quarterlyGoal: Signal<QuarterlyGoal> = computed(() =>
     this.quarterlyGoalStore.selectFirst([['__id', '==', this.goalId()]], {}),
   );
-  
-  /** Shows the signed in user's quarterly goals that aren't deleted, empty if not signed in. */
-  readonly quarterlyGoals: Signal<QuarterlyGoal[]> = computed(() => {
-    const userId = this.currentUser()?.__id;
-    if (!userId) {
-      return [];
-    }
-    // Only this user's goals, skipping deleted ones
-    const queryParams: QueryParams = [
-      ['__userId', '==', userId],
-      ['_deleted', '!=', true],
-    ];
-    // Sort by each goal's order
-    const queryOptions: QueryOptions = {
-      orderBy: 'order',
-    };
-    return this.quarterlyGoalStore.selectEntities(
-      queryParams,
-      queryOptions,
-    );
-  });
+
+  /** This quarterly goal's weekly goals that aren't deleted, in order. */
+  readonly weeklyGoals: Signal<WeeklyGoal[]> = computed(() =>
+    this.weeklyGoalStore.selectEntities(
+      [
+        ['__quarterlyGoalId', '==', this.goalId()],
+        ['_deleted', '!=', true],
+      ],
+      { orderBy: 'order' },
+    ),
+  );
 
   // --------------- EVENT HANDLING ----------------------
-
-  /** Opens the "add a weekly goal" input with empty text. */
+  
+  /** Opens the "add a weekly goal" input with empty text and focuses it. */
   addGoal(): void {
     if (this.addingGoal() || this.loading()) {
       return;
@@ -91,6 +78,9 @@ export class QuarterlyGoalsSidebarComponent implements OnInit {
 
     this.newGoalText.set('');
     this.addingGoal.set(true);
+    afterNextRender(() => this.newGoalInput()?.nativeElement.focus(), {
+      injector: this.injector,
+    });
   }
 
   /** Updates the newGoalText for a new goal input from the user. */
@@ -105,7 +95,7 @@ export class QuarterlyGoalsSidebarComponent implements OnInit {
     this.addingGoal.set(false);
   }
 
-  /** Saves the new weekly goal if there is an input then closes the input. */
+  /** Saves a new weekly goal under this quarterly goal if text was entered. */
   async saveNewGoal(): Promise<void> {
     if (!this.addingGoal() || this.loading()) {
       return;
@@ -117,14 +107,15 @@ export class QuarterlyGoalsSidebarComponent implements OnInit {
     }
     const userId = this.currentUser()?.__id;
     const nextOrder =
-      this.quarterlyGoals().reduce(
+      this.weeklyGoals().reduce(
         (largestOrder, goal) =>
           Math.max(largestOrder, goal.order),
         -1,
       ) + 1;
-    const newQuarterlyGoal = {
+    const newWeeklyGoal = {
       __userId: userId,
-      __hashtagId: this.goalId(),
+      __quarterlyGoalId: this.goalId(),
+      __hashtagId: this.quarterlyGoal()?.__hashtagId,
       text,
       order: nextOrder,
       completed: false,
@@ -132,13 +123,27 @@ export class QuarterlyGoalsSidebarComponent implements OnInit {
     this.loading.set(true);
     this.addingGoal.set(false);
     try {
-      await this.quarterlyGoalStore.add(newQuarterlyGoal);
+      await this.weeklyGoalStore.add(newWeeklyGoal);
       this.newGoalText.set('');
     } finally {
       this.loading.set(false);
     }
   }
+  
+  /** Saves a weekly goal's new completed state when its checkbox is toggled. */
+  async toggleCompleteChange(goal: WeeklyGoal, completed: boolean): Promise<void> {
+    if (this.loading()) {
+      return;
+    }
 
+    this.loading.set(true);
+    try {
+      await this.weeklyGoalStore.update(goal.__id, { completed });
+    } finally {
+      this.loading.set(false);
+    }
+  }
+  
   // --------------- OTHER -------------------------------
 
   constructor(
@@ -148,6 +153,7 @@ export class QuarterlyGoalsSidebarComponent implements OnInit {
 
   // --------------- LOAD AND CLEANUP --------------------
   
+  /** Loads the user's quarterly goals and this quarterly goal's weekly goals. */
   ngOnInit(): void {
     const userId = this.currentUser()?.__id;
     if (!userId) {
@@ -160,6 +166,13 @@ export class QuarterlyGoalsSidebarComponent implements OnInit {
       {
         orderBy: 'order',
       },
+    );
+    this.weeklyGoalStore.load(
+      [
+        ['__userId', '==', userId],
+        ['__quarterlyGoalId', '==', this.goalId()],
+      ],
+      { orderBy: 'order' },
     );
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
 import { NotesAndResourcesAnimations } from './notes-and-resources.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
@@ -16,7 +16,7 @@ import { QuarterlyGoalsSidebarComponent } from './quarterly-goals-sidebar/quarte
     QuarterlyGoalsSidebarComponent,
   ],
 })
-export class NotesAndResourcesComponent implements OnInit {
+export class NotesAndResourcesComponent {
   readonly authStore = inject(AuthStore);
   // --------------- INPUTS AND OUTPUTS ------------------
 
@@ -47,7 +47,4 @@ export class NotesAndResourcesComponent implements OnInit {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
-  ngOnInit(): void {
-  }
 }
