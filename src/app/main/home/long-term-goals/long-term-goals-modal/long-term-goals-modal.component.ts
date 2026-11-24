@@ -1,3 +1,4 @@
+// TODO (3/5): remove the unused imports (input, output, Inject, Injector, BatchWriteService), the unused constructor parameters and the empty ngOnInit; decide whether model() or signal() fits the goal text
 import { Component, OnInit, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector, model } from '@angular/core';
 import { LongTermGoalsModalAnimations } from './long-term-goals-modal.animations';
 import { User } from 'src/app/core/store/user/user.model';
@@ -27,8 +28,8 @@ export class LongTermGoalsModalComponent implements OnInit {
   currentUser: Signal<User> = this.authStore.user;
 
   /** Consts for the goals */
-  oneYearGoal = model(this.data.longTermGoal.oneYear);
-  fiveYearGoal = model(this.data.longTermGoal.fiveYear);
+  oneYearGoal = model(this.data.longTermGoal?.oneYear ?? '');
+  fiveYearGoal = model(this.data.longTermGoal?.fiveYear ?? '');
   // --------------- LOCAL UI STATE ----------------------
 
   /** Loading icon. */
@@ -42,6 +43,7 @@ export class LongTermGoalsModalComponent implements OnInit {
     return oneYear === '' || fiveYear === '';
   });
   // --------------- EVENT HANDLING ----------------------
+  // TODO (2/5): set the loading signal while data.onSaveAfterClick is running, and add loading to the Save button's disabled condition in the template
   onSave(): void {
     if (this.isSaveDisabled()) return;
     this.data.onSaveAfterClick({

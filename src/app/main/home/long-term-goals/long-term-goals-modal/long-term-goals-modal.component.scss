@@ -31,6 +31,7 @@
 
     }
 
+    // TODO (5/5): remove the duplicate width/height in .close-button, give the goal h3 and textarea class names instead of element selectors, and delete the unused label and .edit-message styles
     .close-button {
       position: absolute;
       top: 34px;
