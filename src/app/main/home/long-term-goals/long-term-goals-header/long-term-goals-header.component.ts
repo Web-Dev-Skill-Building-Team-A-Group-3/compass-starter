@@ -12,18 +12,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: LongTermGoalsHeaderAnimations,
   standalone: true,
-  imports: [],
+  imports: [ ],
 })
 export class LongTermGoalsHeaderComponent implements OnInit {
   readonly authStore = inject(AuthStore);
   private readonly snackBar = inject(MatSnackBar);
-
+  
   // --------------- INPUTS AND OUTPUTS ------------------
   currentUser: Signal<User> = this.authStore.user;
   readonly editLongTermGoals = output<boolean>();
-
+  
   /** The current signed in user. */
-  // currentUser: Signal<User> = this.authStore.user;
+ // currentUser: Signal<User> = this.authStore.user;
 
   // --------------- LOCAL UI STATE ----------------------
 
@@ -36,7 +36,7 @@ export class LongTermGoalsHeaderComponent implements OnInit {
   onEdit(isEditState: boolean): void {
     this.snackBar.open('Editing Long-term Goals', 'Close', {
       duration: 5000,
-    });
+    })
 
     this.editLongTermGoals.emit(isEditState);
   }
@@ -49,7 +49,7 @@ export class LongTermGoalsHeaderComponent implements OnInit {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-
+  
   ngOnInit(): void {
   }
 }

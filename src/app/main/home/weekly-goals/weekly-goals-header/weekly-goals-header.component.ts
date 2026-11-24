@@ -15,13 +15,13 @@ import { startOfWeek, endOfWeek } from 'src/app/core/utils/time.utils';
   animations: WeeklyGoalsHeaderAnimations,
   standalone: true,
   imports: [
-
+    
   ],
 })
 export class WeeklyGoalsHeaderComponent implements OnInit {
   readonly authStore = inject(AuthStore);
   private readonly snackBar = inject(MatSnackBar);
-
+  
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
@@ -50,8 +50,8 @@ export class WeeklyGoalsHeaderComponent implements OnInit {
     this.snackBar.open('Pencil Icon has been clicked', '',
       { duration: 1000,
         verticalPosition: 'top',
-        horizontalPosition: 'center',
-      },
+        horizontalPosition: 'center'
+      }
     );
   }
 
@@ -63,7 +63,7 @@ export class WeeklyGoalsHeaderComponent implements OnInit {
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-
+  
   ngOnInit(): void {
   }
 }
